@@ -7,7 +7,7 @@
     <title>Khám Phá Đầm Hà - Gian Hàng Chợ Quê</title>
     <style>
         /* ========================================================
-           1. HỆ THỐNG BIẾN MÀU SẮC (CSS VARIABLES)
+           1. HỆ THỐNG BIẾN MÀU SẮC (ĐÃ SỬA LỖI ĐỂ TRÊN :root)
            ======================================================== */
         :root {
             --bg-color: #f9f6f0;
@@ -22,7 +22,8 @@
             --transition-speed: 0.4s;
         }
 
-        body.dark-mode {
+        /* Giao diện Tối: Gán trực tiếp vào :root để đảm bảo hoạt động 100% trên mọi trình duyệt */
+        :root.dark-mode {
             --bg-color: #121212;
             --text-color: #e0e0e0;
             --card-bg: #1e1e1e;
@@ -63,7 +64,7 @@
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
 
         /* ========================================================
-           3. THANH ĐIỀU HƯỚNG (NAVBAR)
+           3. THANH ĐIỀU HƯỚNG (NAVBAR) - TÍCH HỢP ẨN HIỆN
            ======================================================== */
         nav {
             position: fixed;
@@ -75,19 +76,20 @@
             z-index: 2000;
             box-shadow: 0 4px 15px var(--shadow-color);
             backdrop-filter: blur(10px);
-            transition: background-color var(--transition-speed);
+            /* Thêm transform vào transition để hiệu ứng trượt mượt mà */
+            transform: translateY(0);
+            transition: transform 0.3s ease-in-out, background-color var(--transition-speed);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between; /* Tách Menu ra giữa, Nút ra góc phải */
+            justify-content: space-between; 
             align-items: center;
             padding: 0 20px;
         }
 
-        /* Vùng trống bên trái để cân bằng với nút bên phải giúp menu ở chính giữa */
         .nav-spacer { width: 40px; }
 
         nav ul {
@@ -102,7 +104,7 @@
             color: white;
             text-decoration: none;
             font-weight: 600;
-            font-size: clamp(0.9em, 2.5vw, 1.05em); /* Chữ tự nhỏ lại trên điện thoại */
+            font-size: clamp(0.9em, 2.5vw, 1.05em);
             padding: 8px 15px;
             border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -360,9 +362,10 @@
 </head>
 <body>
 
-    <nav>
+    <nav id="navbar">
         <div class="nav-container">
-            <div class="nav-spacer"></div> <ul>
+            <div class="nav-spacer"></div>
+            <ul>
                 <li><a href="#gioi-thieu">Giới Thiệu</a></li>
                 <li><a href="#dia-diem">Cảnh Đẹp</a></li>
                 <li><a href="#dac-san">Món Ngon</a></li>
@@ -465,77 +468,73 @@
     </footer>
 
     <script>
-        /* --- 1. XỬ LÝ NÚT SÁNG/TỐI --- */
+        /* --- 1. XỬ LÝ NÚT SÁNG/TỐI (Sửa lỗi cho thẻ HTML :root) --- */
         const themeToggleBtn = document.getElementById('theme-toggle');
+        // Sử dụng thẻ <html> để đảm bảo biến CSS được ưu tiên cao nhất
+        const rootElement = document.documentElement; 
+
         themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            themeToggleBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            rootElement.classList.toggle('dark-mode');
+            themeToggleBtn.innerHTML = rootElement.classList.contains('dark-mode') ? '☀️' : '🌙';
         });
 
-        /* --- 2. XỬ LÝ NÚT CUỘN TRANG --- */
+        /* --- 2. XỬ LÝ CUỘN TRANG (Ẩn Menu & Nút Lên Đầu Trang) --- */
+        const navbar = document.getElementById('navbar');
         const backToTopBtn = document.getElementById('back-to-top');
+        let lastScrollY = window.scrollY;
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
+            const currentScrollY = window.scrollY;
+
+            // A. Logic Smart Navbar (Tự động Ẩn/Hiện Menu)
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Đang cuộn XUỐNG và cách đỉnh quá 100px -> Trượt Menu lên để giấu đi
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Đang cuộn LÊN -> Trượt Menu trở lại
+                navbar.style.transform = 'translateY(0)';
+            }
+            lastScrollY = currentScrollY; // Cập nhật lại vị trí cuộn
+
+            // B. Logic Nút Lên Đầu Trang
+            if (currentScrollY > 300) {
                 backToTopBtn.classList.add('show');
             } else {
                 backToTopBtn.classList.remove('show');
             }
         });
+
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        /* --- 3. XỬ LÝ LIGHTBOX (Tối ưu mượt mà) --- */
+        /* --- 3. XỬ LÝ LIGHTBOX CHUYÊN NGHIỆP --- */
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.close-lightbox');
         const cardImages = document.querySelectorAll('article.card img');
 
-        // Hàm Mở ảnh: Gắn ảnh, hiện khung và đẩy trạng thái vào lịch sử
         function openLightbox(imgElement) {
             lightboxImg.src = imgElement.src;
             lightboxImg.alt = imgElement.alt;
             lightbox.classList.add('active');
             document.body.classList.add('no-scroll');
-            window.history.pushState({ isLightboxOpen: true }, ''); // Tạo 1 bước lịch sử ảo
+            window.history.pushState({ isLightboxOpen: true }, ''); 
         }
 
-        // Hàm Đóng giao diện
         function closeLightboxUI() {
             lightbox.classList.remove('active');
             document.body.classList.remove('no-scroll');
         }
 
-        // Bắt sự kiện Click để MỞ ảnh
+        function handleManualClose() {
+            if (lightbox.classList.contains('active')) {
+                window.history.back(); 
+            }
+        }
+
         cardImages.forEach(img => {
             img.addEventListener('click', function() {
                 openLightbox(this);
             });
-        });
-
-        // Hàm Xử lý khi người dùng CHỦ ĐỘNG đóng (bấm X, bấm ngoài, bấm ESC)
-        function handleManualClose() {
-            if (lightbox.classList.contains('active')) {
-                window.history.back(); // Lệnh này sẽ tự động kích hoạt sự kiện 'popstate' bên dưới
-            }
-        }
-
-        closeBtn.addEventListener('click', handleManualClose);
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                handleManualClose();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' || e.key === 'Esc') {
-                handleManualClose();
-            }
-        });
-
-        // Bắt sự kiện Lùi Lịch Sử (Khi gọi history.back() hoặc người dùng vuốt điện thoại)
-        window.addEventListener('popstate', (e) => {
-            if (lightbox.classList.contains('active')) {
-                closeLightboxUI(); // Tự động dọn dẹp giao diện khi lịch sử bị lùi
-           
+     
