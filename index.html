@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá gian hàng chợ quê lớp chúng mình với những cảnh đẹp và đặc sản trứ danh của Đầm Hà, Quảng Ninh.">
     <title>Khám Phá Đầm Hà - Gian Hàng Chợ Quê</title>
     <style>
         /* ========================================================
-           1. HỆ THỐNG BIẾN MÀU SẮC (SÁNG / TỐI)
+           1. HỆ THỐNG BIẾN MÀU SẮC TỐI ƯU
            ======================================================== */
         :root {
             --bg-color: #f9f6f0;
@@ -18,6 +19,7 @@
             --footer-bg: #222222;
             --nav-bg: rgba(46, 125, 50, 0.95);
             --shadow-color: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
         }
 
         body.dark-mode {
@@ -27,7 +29,7 @@
             --header-bg: #1b5e20;
             --header-gradient: linear-gradient(135deg, #1b5e20, #09260d);
             --title-color: #ff8a65;
-            --footer-bg: #000000;
+            --footer-bg: #050505;
             --nav-bg: rgba(10, 46, 14, 0.95);
             --shadow-color: rgba(255, 255, 255, 0.05);
         }
@@ -43,7 +45,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
         }
 
         body.no-scroll { overflow: hidden; height: 100vh; }
@@ -63,7 +65,7 @@
             box-shadow: 0 4px 15px var(--shadow-color);
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             transform: translateY(0);
-            transition: transform 0.4s ease-in-out, background-color 0.3s;
+            transition: transform 0.4s ease-in-out, background-color var(--transition-speed);
         }
 
         .nav-container {
@@ -71,35 +73,37 @@
             justify-content: space-between; align-items: center; padding: 0 20px;
         }
 
-        .nav-spacer { width: 44px; height: 44px; }
+        .nav-spacer { width: 44px; height: 44px; } /* Giữ Menu căn giữa tuyệt đối */
 
         nav ul { list-style-type: none; display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
         nav ul li a {
             color: white; text-decoration: none; font-weight: 600; font-size: 1.05em;
-            padding: 8px 15px; border-radius: 30px; transition: 0.3s;
+            padding: 8px 15px; border-radius: 30px; transition: background-color var(--transition-speed), transform 0.2s;
         }
         nav ul li a:hover { background-color: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
 
         #theme-toggle {
             background: transparent; border: none; font-size: 1.5em; cursor: pointer;
             width: 44px; height: 44px; border-radius: 50%;
-            transition: 0.3s; display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s, background-color var(--transition-speed);
+            display: flex; align-items: center; justify-content: center; color: white;
         }
         #theme-toggle:hover { background-color: rgba(255, 255, 255, 0.2); transform: scale(1.1) rotate(15deg); }
 
         /* ========================================================
-           4. HEADER & CARDS
+           4. HEADER & NỘI DUNG CHÍNH
            ======================================================== */
         header {
             background: var(--header-gradient); color: white; text-align: center;
-            padding: 130px 20px 80px 20px; transition: 0.3s;
+            padding: 130px 20px 80px 20px; transition: background var(--transition-speed);
             clip-path: polygon(0 0, 100% 0, 100% 92%, 50% 100%, 0 92%);
         }
-        header h1 { font-size: clamp(1.8em, 5vw, 3.5em); margin-bottom: 15px; text-shadow: 2px 2px 5px rgba(0,0,0,0.4); }
+        header h1 { font-size: clamp(1.8em, 5vw, 3.5em); margin-bottom: 15px; text-shadow: 2px 2px 5px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 2px; }
         header p { font-size: 1.1em; max-width: 800px; margin: 0 auto; opacity: 0.95; }
 
         main.container { max-width: 1200px; margin: -30px auto 0 auto; padding: 40px 20px; position: relative; z-index: 10; }
         section.section-target { scroll-margin-top: 90px; margin-bottom: 70px; }
+        
         h2.section-title {
             text-align: center; color: var(--title-color); font-size: 2em;
             border-bottom: 3px solid var(--title-color); display: inline-block;
@@ -107,45 +111,57 @@
         }
 
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+        
         article.card {
             background-color: var(--card-bg); border-radius: 16px; box-shadow: 0 8px 25px var(--shadow-color);
-            overflow: hidden; transition: 0.4s; display: flex; flex-direction: column;
+            overflow: hidden; transition: transform 0.4s, box-shadow 0.4s, background-color var(--transition-speed);
+            display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.03);
         }
         article.card img {
             width: 100%; height: 240px; object-fit: cover; background-color: var(--nav-bg);
-            transition: 0.5s; cursor: zoom-in; display: block;
+            transition: transform 0.5s; cursor: zoom-in; display: block;
         }
+        article.card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px var(--shadow-color); }
         article.card:hover img { transform: scale(1.05); }
+        
         .card-content { padding: 25px; flex-grow: 1; }
-        .card-content h3 { color: var(--header-bg); margin-bottom: 10px; font-size: 1.35em; }
+        .card-content h3 { color: var(--header-bg); margin-bottom: 10px; font-size: 1.35em; transition: color var(--transition-speed); }
+        .card-content p { text-align: justify; font-size: 0.98em; opacity: 0.9; }
 
         /* ========================================================
-           5. LIGHTBOX & NÚT CUỘN
+           5. LIGHTBOX (KHUNG PHÓNG TO ẢNH)
            ======================================================== */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.92); z-index: 3000;
             display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: 0.3s;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
             backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
         }
         .lightbox-overlay.show { opacity: 1; visibility: visible; }
+        
         .lightbox-image {
             max-width: 95vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.9);
-            object-fit: contain; transform: scale(0.9); transition: 0.4s; user-select: none;
+            object-fit: contain; transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
         }
         .lightbox-overlay.show .lightbox-image { transform: scale(1); }
+        
         .close-lightbox {
             position: absolute; top: 15px; right: 20px; background: transparent; color: white;
-            border: none; font-size: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 3001;
+            border: none; font-size: 50px; font-weight: bold; cursor: pointer; transition: color 0.3s, transform 0.3s; z-index: 3001;
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; line-height: 1;
         }
         .close-lightbox:hover { color: var(--title-color); transform: rotate(90deg); }
 
+        /* ========================================================
+           6. NÚT CUỘN LÊN ĐẦU TRANG & NÚT PHẢN HỒI
+           ======================================================== */
         #back-to-top {
             position: fixed; right: 20px; bottom: 30px; background-color: var(--header-bg); color: white;
-            border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.6em; font-weight: bold;
+            border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.6em; font-weight: bold; font-family: Arial, sans-serif;
             opacity: 0; visibility: hidden; transform: translateY(20px); cursor: pointer;
-            box-shadow: 0 4px 15px var(--shadow-color); z-index: 1000; transition: 0.3s; padding-bottom: 4px;
+            box-shadow: 0 4px 15px var(--shadow-color); z-index: 1000; transition: all 0.3s; padding-bottom: 4px;
         }
         #back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
         #back-to-top:hover { background-color: var(--title-color); transform: scale(1.1) translateY(-3px); }
@@ -154,13 +170,27 @@
         .feedback-btn {
             display: inline-block; background-color: var(--title-color); color: white; padding: 15px 40px;
             font-size: 1.2em; font-weight: bold; text-decoration: none; border-radius: 50px;
-            box-shadow: 0 6px 20px var(--shadow-color); transition: 0.3s;
+            box-shadow: 0 6px 20px var(--shadow-color); transition: transform 0.3s, background-color 0.3s;
         }
-        .feedback-btn:hover { transform: translateY(-5px) scale(1.05); background-color: #bf360c; }
-        footer { background-color: var(--footer-bg); color: #ffffff; text-align: center; padding: 40px 20px; }
+        .feedback-btn:hover { transform: translateY(-5px) scale(1.05); background-color: #bf360c; color: white; }
+
+        /* ========================================================
+           7. CHÂN TRANG
+           ======================================================== */
+        footer {
+            background-color: var(--footer-bg); color: #ffffff; text-align: center;
+            padding: 40px 20px; transition: background-color var(--transition-speed);
+        }
+        footer p { margin: 10px 0; font-size: 1.05em; opacity: 0.8; }
     </style>
 </head>
 <body>
+
+    <script>
+        try {
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        } catch (e) { /* Bỏ qua nếu trình duyệt chặn localStorage */ }
+    </script>
 
     <nav id="navbar">
         <div class="nav-container">
@@ -170,14 +200,14 @@
                 <li><a href="#dia-diem">Cảnh Đẹp</a></li>
                 <li><a href="#dac-san">Món Ngon</a></li>
             </ul>
-            <button id="theme-toggle" onclick="toggleTheme()" aria-label="Đổi giao diện">🌙</button>
+            <button id="theme-toggle" aria-label="Đổi giao diện" title="Đổi màu nền">🌙</button>
         </div>
     </nav>
 
-    <button id="back-to-top" onclick="scrollToTop()" aria-label="Lên đầu trang">&uarr;</button>
+    <button id="back-to-top" aria-label="Lên đầu trang" title="Trở lên trên">&uarr;</button>
 
-    <div id="lightbox-overlay" class="lightbox-overlay" onclick="closeLightbox(event)">
-        <button id="close-lightbox" class="close-lightbox" onclick="closeLightbox(event)">&times;</button>
+    <div id="lightbox-overlay" class="lightbox-overlay">
+        <button id="close-lightbox" class="close-lightbox" title="Đóng">&times;</button>
         <img id="lightbox-image" class="lightbox-image" alt="Ảnh phóng to">
     </div>
 
@@ -189,74 +219,26 @@
     <main class="container">
         
         <section id="gioi-thieu" class="fade-in section-target" style="text-align: center; font-size: 1.15em; max-width: 900px; margin-left: auto; margin-right: auto;">
-            <p><strong>Đầm Hà</strong> là một huyện ven biển phía Đông Bắc của tỉnh Quảng Ninh. Nơi đây chưa bị thương mại hóa nhiều nên vẫn giữ được vẻ đẹp thiên nhiên hoang sơ, thanh bình cùng những giá trị lịch sử, văn hóa độc đáo.</p>
+            <p><strong>Đầm Hà</strong> là một huyện ven biển phía Đông Bắc của tỉnh Quảng Ninh. Nơi đây chưa bị thương mại hóa nhiều nên vẫn giữ được vẻ đẹp thiên nhiên hoang sơ, thanh bình cùng những giá trị lịch sử, văn hóa độc đáo. Hãy cùng chiêm ngưỡng cảnh sắc và nếm thử mỹ vị nơi đây!</p>
         </section>
 
         <section id="dia-diem" class="fade-in section-target">
             <h2 class="section-title">Điểm Đến Chơi Quên Lối Về</h2>
             <div class="grid-layout">
-                <article class="card">
-                    <img src="images/daodadung.webp" alt="Đảo Đá Dựng" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Đảo Đá Dựng</h3>
-                        <p>Hòn đảo nhỏ tuyệt đẹp giữa vùng biển Đầm Hà. Gây ấn tượng bởi làn nước xanh ngọc bích, bãi cát trắng mịn và những mỏm đá mang hình thù độc đáo.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/thacbachvan.webp" alt="Thác Bạch Vân" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Thác Bạch Vân</h3>
-                        <p>Ngọn thác kỳ vĩ với 5 tầng thác, cao gần 70m. Nước tung bọt trắng xóa giữa núi rừng hoang sơ.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/nuihua.webp" alt="Núi Hứa" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Rừng Cò Núi Hứa</h3>
-                        <p>Nằm tại xã Đại Bình, không chỉ là di tích lịch sử cách mạng mà còn nổi tiếng với "Rừng Cò".</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/dinhdamha.webp" alt="Đình Đầm Hà" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Đình Đầm Hà</h3>
-                        <p>Công trình kiến trúc văn hóa tín ngưỡng tiêu biểu. Nơi diễn ra Lễ hội Đình Đầm Hà truyền thống.</p>
-                    </div>
-                </article>
+                <article class="card"><img src="images/daodadung.webp" alt="Đảo Đá Dựng"><div class="card-content"><h3>Đảo Đá Dựng</h3><p>Hòn đảo nhỏ tuyệt đẹp giữa vùng biển Đầm Hà. Gây ấn tượng bởi làn nước xanh ngọc bích, bãi cát trắng mịn và những mỏm đá mang hình thù độc đáo.</p></div></article>
+                <article class="card"><img src="images/thacbachvan.webp" alt="Thác Bạch Vân"><div class="card-content"><h3>Thác Bạch Vân</h3><p>Ngọn thác kỳ vĩ với 5 tầng thác, cao gần 70m. Để lên đỉnh, bạn sẽ băng qua những thửa ruộng bậc thang tuyệt đẹp. Nước tung bọt trắng xóa giữa núi rừng hoang sơ.</p></div></article>
+                <article class="card"><img src="images/nuihua.webp" alt="Núi Hứa"><div class="card-content"><h3>Rừng Cò Núi Hứa</h3><p>Nằm tại xã Đại Bình, không chỉ là di tích lịch sử cách mạng mà còn nổi tiếng với "Rừng Cò". Chiêm ngưỡng hàng ngàn chú cò trắng chao lượn dưới ánh nắng chiều tà.</p></div></article>
+                <article class="card"><img src="images/dinhdamha.webp" alt="Đình Đầm Hà"><div class="card-content"><h3>Đình Đầm Hà</h3><p>Công trình kiến trúc văn hóa tín ngưỡng tiêu biểu. Nơi đây diễn ra Lễ hội Đình Đầm Hà truyền thống thu hút đông đảo du khách với các nghi lễ rước thần, hát nhà tơ.</p></div></article>
             </div>
         </section>
 
-        <section id="dac-san" class="fade-in section-target">
+        <section id="dac-san" class="fade-in section-target" style="animation-delay: 0.2s;">
             <h2 class="section-title">Món Ngon Níu Chân Du Khách</h2>
             <div class="grid-layout">
-                <article class="card">
-                    <img src="images/gabandamha.webp" alt="Gà bản Đầm Hà" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Gà Bản (Gà leo cây)</h3>
-                        <p>Được mệnh danh là "gà khoác áo hoa", ban ngày chạy bộ, tối leo cây ngủ. Da gà vàng óng, thịt săn chắc.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/ngansao.webp" alt="Ngan sao Đại Bình" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Ngan Sao Đại Bình</h3>
-                        <p>Sản phẩm OCOP 3 sao trứ danh. Nuôi bằng thức ăn tự nhiên giúp thịt ngan thơm ngon, mềm ngọt.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/cucaiphen.webp" alt="Củ Cải Phên" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Củ Cải Phên</h3>
-                        <p>Củ cải được thái, ướp muối và phơi khô trên phên nứa. Nguyên liệu dân dã tạo nên độ giòn đặc trưng.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/khaunhuc.webp" alt="Khâu Nhục Đầm Hà" onclick="openLightbox(this)">
-                    <div class="card-content">
-                        <h3>Khâu Nhục</h3>
-                        <p>Món ăn "linh hồn" trong mâm cỗ. Miếng thịt mềm rục, tươm mỡ béo ngậy, tan ngay trong miệng.</p>
-                    </div>
-                </article>
+                <article class="card"><img src="images/gabandamha.webp" alt="Gà bản Đầm Hà"><div class="card-content"><h3>Gà Bản (Gà leo cây)</h3><p>Được mệnh danh là "gà khoác áo hoa", ban ngày chạy bộ, tối leo cây ngủ. Da gà vàng óng, giòn sần sật, thịt săn chắc, ngọt, thơm nồng mùi gừng.</p></div></article>
+                <article class="card"><img src="images/ngansao.webp" alt="Ngan sao Đại Bình"><div class="card-content"><h3>Ngan Sao Đại Bình</h3><p>Sản phẩm OCOP 3 sao trứ danh. Ngan sao có thân hình nhỏ, lông khoang đen trắng xanh. Nuôi bằng thức ăn tự nhiên giúp thịt ngan thơm ngon, mềm ngọt.</p></div></article>
+                <article class="card"><img src="images/cucaiphen.webp" alt="Củ Cải Phên"><div class="card-content"><h3>Củ Cải Phên</h3><p>Củ cải được thái, ướp muối và phơi khô trên phên nứa. Đây là nguyên liệu dân dã tạo nên độ giòn, vị đậm đà đặc trưng khó quên cho món ăn người dân Đầm Hà.</p></div></article>
+                <article class="card"><img src="images/khaunhuc.webp" alt="Khâu Nhục Đầm Hà"><div class="card-content"><h3>Khâu Nhục</h3><p>Món ăn "linh hồn" trong mâm cỗ. Thịt ba chỉ luộc, châm da, chiên vàng rồi hấp cách thủy nhiều giờ cùng củ cải phên. Miếng thịt mềm rục, tươm mỡ béo ngậy.</p></div></article>
             </div>
         </section>
 
@@ -271,70 +253,85 @@
     </footer>
 
     <script>
-        // Hàm đổi giao diện Tối/Sáng
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            var btn = document.getElementById('theme-toggle');
-            if(btn) {
-                btn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. XỬ LÝ GIAO DIỆN TỐI/SÁNG ---
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                // Đặt Icon ban đầu
+                themeBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+                
+                themeBtn.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-mode');
+                    const isDark = document.body.classList.contains('dark-mode');
+                    themeBtn.innerHTML = isDark ? '☀️' : '🌙';
+                    // Lưu trạng thái an toàn
+                    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+                });
             }
-        }
 
-        // Hàm cuộn lên đầu trang
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+            // --- 2. XỬ LÝ CUỘN TRANG (MENU & NÚT LÊN ĐẦU) ---
+            const nav = document.getElementById('navbar');
+            const btt = document.getElementById('back-to-top');
+            let lastY = window.scrollY;
 
-        // Hàm mở ảnh phóng to
-        function openLightbox(imgElement) {
-            var overlay = document.getElementById('lightbox-overlay');
-            var lbImg = document.getElementById('lightbox-image');
-            if (overlay && lbImg) {
-                lbImg.src = imgElement.src;
-                overlay.classList.add('show');
-                document.body.classList.add('no-scroll');
-            }
-        }
+            window.addEventListener('scroll', () => {
+                const currentY = window.scrollY;
+                // Menu trượt
+                if (nav) nav.style.transform = (currentY > lastY && currentY > 120) ? 'translateY(-100%)' : 'translateY(0)';
+                lastY = currentY;
 
-        // Hàm đóng ảnh phóng to
-        function closeLightbox(event) {
-            // Không đóng nếu người dùng lỡ bấm trúng vào chính bức ảnh
-            if (event && event.target.id === 'lightbox-image') return; 
-            
-            var overlay = document.getElementById('lightbox-overlay');
-            if (overlay) overlay.classList.remove('show');
-            document.body.classList.remove('no-scroll');
-        }
-
-        // Hàm đóng ảnh bằng phím ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' || event.key === 'Esc') {
-                closeLightbox();
-            }
-        });
-
-        // Xử lý hiệu ứng Cuộn trang (Menu tự ẩn & Hiện nút lên đầu)
-        var lastScrollY = window.scrollY;
-        window.addEventListener('scroll', function() {
-            var currentScrollY = window.scrollY;
-            var nav = document.getElementById('navbar');
-            var bttBtn = document.getElementById('back-to-top');
-
-            // Xử lý thanh Menu
-            if (nav) {
-                if (currentScrollY > lastScrollY && currentScrollY > 120) {
-                    nav.style.transform = 'translateY(-100%)'; // Cuộn xuống -> Ẩn
-                } else {
-                    nav.style.transform = 'translateY(0)'; // Cuộn lên -> Hiện
+                // Nút lên đầu trang
+                if (btt) {
+                    if (currentY > 400) btt.classList.add('show');
+                    else btt.classList.remove('show');
                 }
-            }
-            lastScrollY = currentScrollY;
+            });
 
-            // Xử lý nút Lên đỉnh
-            if (bttBtn) {
-                if (currentScrollY > 300) bttBtn.classList.add('show');
-                else bttBtn.classList.remove('show');
+            if (btt) {
+                btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             }
+
+            // --- 3. XỬ LÝ LIGHTBOX (PHÓNG TO ẢNH) ---
+            const lbOverlay = document.getElementById('lightbox-overlay');
+            const lbImage = document.getElementById('lightbox-image');
+            const lbClose = document.getElementById('close-lightbox');
+            const cards = document.querySelectorAll('article.card img');
+
+            function openLightbox(src, alt) {
+                if (!lbOverlay || !lbImage) return;
+                lbImage.src = src;
+                lbImage.alt = alt || 'Ảnh phóng to';
+                lbOverlay.classList.add('show');
+                document.body.classList.add('no-scroll');
+                try { window.history.pushState({ lbOpen: true }, ''); } catch (e) {}
+            }
+
+            function closeLightbox() {
+                if (!lbOverlay || !lbImage) return;
+                lbOverlay.classList.remove('show');
+                document.body.classList.remove('no-scroll');
+                setTimeout(() => { lbImage.removeAttribute('src'); }, 300); // Đợi mờ xong mới xóa ảnh
+            }
+
+            // Gắn sự kiện click cho tất cả ảnh
+            cards.forEach(img => {
+                img.addEventListener('click', () => openLightbox(img.src, img.alt));
+            });
+
+            // Hàm kích hoạt Đóng (Kiểm tra Lịch sử ảo)
+            function triggerClose() {
+                if (!lbOverlay || !lbOverlay.classList.contains('show')) return;
+                try {
+                    if (window.history.state && window.history.state.lbOpen) window.history.back();
+                    else closeLightbox();
+                } catch (e) { closeLightbox(); }
+            }
+
+            // Gắn các sự kiện đóng
+            if (lbClose) lbClose.addEventListener('click', triggerClose);
+            if (lbOverlay) lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) triggerClose(); });
+            document.addEventListener('keydown', (e) => { if ((e.key === 'Escape' || e.key === 'Esc') && lbOverlay && lbOverlay.classList.contains('show')) triggerClose(); });
+            window.addEventListener('popstate', () => { if (lbOverlay && lbOverlay.classList.contains('show')) closeLightbox(); });
         });
     </script>
 </body>
