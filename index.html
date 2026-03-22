@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá gian hàng chợ quê lớp chúng mình với những cảnh đẹp và đặc sản trứ danh của Đầm Hà, Quảng Ninh.">
     <title>Khám Phá Đầm Hà - Gian Hàng Chợ Quê</title>
     <style>
         /* ========================================================
@@ -21,13 +22,12 @@
             --transition-speed: 0.4s;
         }
 
-        /* Giao diện Tối */
         body.dark-mode {
             --bg-color: #121212;
             --text-color: #e0e0e0;
             --card-bg: #1e1e1e;
             --header-bg: #1b5e20;
-            --header-gradient: linear-gradient(135deg, #1b5e20, #0a2e0e);
+            --header-gradient: linear-gradient(135deg, #1b5e20, #09260d);
             --title-color: #ff8a65;
             --footer-bg: #000000;
             --nav-bg: rgba(10, 46, 14, 0.95);
@@ -35,7 +35,7 @@
         }
 
         /* ========================================================
-           2. CÀI ĐẶT CƠ BẢN (RESET & TYPOGRAPHY)
+           2. CÀI ĐẶT CƠ BẢN
            ======================================================== */
         * {
             box-sizing: border-box;
@@ -43,9 +43,7 @@
             padding: 0;
         }
 
-        html {
-            scroll-behavior: smooth; /* Cuộn mượt khi bấm menu */
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -55,24 +53,17 @@
             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        body.no-scroll {
-            overflow: hidden; /* Khóa cuộn trang khi mở ảnh */
-        }
+        body.no-scroll { overflow: hidden; }
 
-        /* ========================================================
-           3. HIỆU ỨNG (ANIMATIONS)
-           ======================================================== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
 
         /* ========================================================
-           4. THANH ĐIỀU HƯỚNG (NAVBAR)
+           3. THANH ĐIỀU HƯỚNG (NAVBAR)
            ======================================================== */
         nav {
             position: fixed;
@@ -80,28 +71,40 @@
             left: 0;
             width: 100%;
             background-color: var(--nav-bg);
-            padding: 12px 0;
+            padding: 10px 0;
             z-index: 2000;
             box-shadow: 0 4px 15px var(--shadow-color);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             transition: background-color var(--transition-speed);
         }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between; /* Tách Menu ra giữa, Nút ra góc phải */
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* Vùng trống bên trái để cân bằng với nút bên phải giúp menu ở chính giữa */
+        .nav-spacer { width: 40px; }
 
         nav ul {
             list-style-type: none;
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            gap: 5px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.05em;
-            padding: 8px 20px;
-            border-radius: 30px; /* Bo tròn mượt mà */
+            font-size: clamp(0.9em, 2.5vw, 1.05em); /* Chữ tự nhỏ lại trên điện thoại */
+            padding: 8px 15px;
+            border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.2s ease;
             display: inline-block;
         }
@@ -111,20 +114,39 @@
             transform: translateY(-2px);
         }
 
+        #theme-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.4em;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1) rotate(15deg);
+        }
+
         /* ========================================================
-           5. HEADER CHÍNH
+           4. HEADER CHÍNH
            ======================================================== */
         header {
             background: var(--header-gradient);
             color: white;
             text-align: center;
-            padding: 140px 20px 80px 20px;
+            padding: 130px 20px 80px 20px;
             transition: background var(--transition-speed);
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); /* Cắt góc tạo điểm nhấn */
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 50% 100%, 0 92%);
         }
 
         header h1 {
-            font-size: clamp(2em, 5vw, 3.5em);
+            font-size: clamp(1.8em, 5vw, 3.5em);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
@@ -132,36 +154,36 @@
         }
 
         header p {
-            font-size: clamp(1.1em, 3vw, 1.3em);
+            font-size: clamp(1.05em, 3vw, 1.3em);
             max-width: 800px;
             margin: 0 auto;
             opacity: 0.95;
         }
 
         /* ========================================================
-           6. BỐ CỤC CHÍNH VÀ CÁC THẺ (CARDS)
+           5. BỐ CỤC CHÍNH VÀ CÁC THẺ (CARDS)
            ======================================================== */
         main.container {
             max-width: 1200px;
-            margin: -30px auto 0 auto; /* Đẩy nội dung lên một chút để che lấp phần clip-path */
+            margin: -30px auto 0 auto;
             padding: 40px 20px;
             position: relative;
             z-index: 10;
         }
 
         section.section-target {
-            scroll-margin-top: 100px; /* Đảm bảo Menu không đè tiêu đề */
-            margin-bottom: 60px;
+            scroll-margin-top: 90px;
+            margin-bottom: 70px;
         }
 
         h2.section-title {
             text-align: center;
             color: var(--title-color);
-            font-size: clamp(1.8em, 4vw, 2.5em);
+            font-size: clamp(1.6em, 4vw, 2.5em);
             border-bottom: 3px solid var(--title-color);
             display: inline-block;
             padding-bottom: 10px;
-            margin: 20px auto 40px auto;
+            margin: 0 auto 40px auto;
             position: relative;
             left: 50%;
             transform: translateX(-50%);
@@ -176,7 +198,7 @@
         article.card {
             background-color: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 10px 20px var(--shadow-color);
+            box-shadow: 0 8px 20px var(--shadow-color);
             overflow: hidden;
             transition: transform 0.4s ease, box-shadow 0.4s ease, background-color var(--transition-speed);
             display: flex;
@@ -185,22 +207,22 @@
         }
 
         article.card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px var(--shadow-color);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
 
         article.card img {
             width: 100%;
             height: 240px;
             object-fit: cover;
-            background-color: #e0e0e0; /* Nền dự phòng */
+            background-color: var(--nav-bg);
             transition: transform 0.5s ease;
             cursor: zoom-in;
             display: block;
         }
 
         article.card:hover img {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
         .card-content {
@@ -211,18 +233,18 @@
         .card-content h3 {
             color: var(--header-bg);
             margin-bottom: 10px;
-            font-size: 1.4em;
+            font-size: 1.35em;
             transition: color var(--transition-speed);
         }
 
         .card-content p {
             text-align: justify;
-            font-size: 1em;
+            font-size: 0.98em;
             opacity: 0.9;
         }
 
         /* ========================================================
-           7. CÔNG CỤ HIỂN THỊ ẢNH TO (LIGHTBOX)
+           6. CÔNG CỤ HIỂN THỊ ẢNH TO (LIGHTBOX)
            ======================================================== */
         .lightbox {
             position: fixed;
@@ -246,11 +268,11 @@
         }
 
         .lightbox img {
-            max-width: 90vw;
+            max-width: 95vw;
             max-height: 90vh;
             border-radius: 12px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.9);
-            transform: scale(0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            transform: scale(0.9);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             user-select: none;
         }
@@ -262,13 +284,18 @@
         .close-lightbox {
             position: absolute;
             top: 20px;
-            right: 30px;
+            right: 25px;
             color: white;
             font-size: 45px;
             font-weight: bold;
             cursor: pointer;
             transition: color 0.3s, transform 0.3s;
             z-index: 3001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-lightbox:hover {
@@ -277,13 +304,22 @@
         }
 
         /* ========================================================
-           8. CÁC NÚT BẤM TIỆN ÍCH
+           7. NÚT CUỘN LÊN ĐẦU TRANG
            ======================================================== */
-        .floating-btn {
+        #back-to-top {
             position: fixed;
-            right: 30px;
+            right: 20px;
+            bottom: 30px;
+            background-color: var(--header-bg);
             color: white;
             border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.4em;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
             cursor: pointer;
             box-shadow: 0 4px 15px var(--shadow-color);
             z-index: 1000;
@@ -291,32 +327,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        #theme-toggle {
-            bottom: 30px;
-            background-color: var(--title-color);
-            border-radius: 50px;
-            padding: 12px 22px;
-            font-size: 1em;
-            font-weight: bold;
-        }
-
-        #theme-toggle:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 25px var(--shadow-color);
-        }
-
-        #back-to-top {
-            bottom: 90px;
-            background-color: var(--header-bg);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5em;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
         }
 
         #back-to-top.show {
@@ -331,20 +341,19 @@
         }
 
         /* ========================================================
-           9. CHÂN TRANG (FOOTER)
+           8. CHÂN TRANG (FOOTER)
            ======================================================== */
         footer {
             background-color: var(--footer-bg);
             color: #ffffff;
             text-align: center;
-            padding: 50px 20px;
-            margin-top: 40px;
+            padding: 40px 20px;
             transition: background-color var(--transition-speed);
         }
 
         footer p {
             margin: 10px 0;
-            font-size: 1.1em;
+            font-size: 1.05em;
             opacity: 0.8;
         }
     </style>
@@ -352,15 +361,17 @@
 <body>
 
     <nav>
-        <ul>
-            <li><a href="#gioi-thieu">Giới Thiệu</a></li>
-            <li><a href="#dia-diem">Cảnh Đẹp</a></li>
-            <li><a href="#dac-san">Món Ngon</a></li>
-        </ul>
+        <div class="nav-container">
+            <div class="nav-spacer"></div> <ul>
+                <li><a href="#gioi-thieu">Giới Thiệu</a></li>
+                <li><a href="#dia-diem">Cảnh Đẹp</a></li>
+                <li><a href="#dac-san">Món Ngon</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Đổi giao diện" title="Đổi màu nền">🌙</button>
+        </div>
     </nav>
 
-    <button id="back-to-top" class="floating-btn" aria-label="Lên đầu trang" title="Lên đầu trang">⬆️</button>
-    <button id="theme-toggle" class="floating-btn" aria-label="Chuyển đổi giao diện">🌙 Giao diện tối</button>
+    <button id="back-to-top" aria-label="Lên đầu trang" title="Lên đầu trang">⬆️</button>
 
     <div id="lightbox" class="lightbox" aria-hidden="true">
         <span class="close-lightbox" aria-label="Đóng ảnh" title="Đóng">&times;</span>
@@ -454,14 +465,14 @@
     </footer>
 
     <script>
-        /* --- XỬ LÝ GIAO DIỆN TỐI/SÁNG --- */
+        /* --- 1. XỬ LÝ NÚT SÁNG/TỐI --- */
         const themeToggleBtn = document.getElementById('theme-toggle');
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
-            themeToggleBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Giao diện sáng' : '🌙 Giao diện tối';
+            themeToggleBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         });
 
-        /* --- XỬ LÝ NÚT CUỘN LÊN ĐẦU TRANG --- */
+        /* --- 2. XỬ LÝ NÚT CUỘN TRANG --- */
         const backToTopBtn = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -474,68 +485,57 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        /* --- XỬ LÝ LIGHTBOX CHUYÊN NGHIỆP (Hỗ trợ Vuốt/Back/Esc) --- */
+        /* --- 3. XỬ LÝ LIGHTBOX (Tối ưu mượt mà) --- */
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.close-lightbox');
-        const cardImages = document.querySelectorAll('.card img');
+        const cardImages = document.querySelectorAll('article.card img');
 
-        // Hàm mở ảnh và lưu trạng thái vào lịch sử trình duyệt
+        // Hàm Mở ảnh: Gắn ảnh, hiện khung và đẩy trạng thái vào lịch sử
         function openLightbox(imgElement) {
             lightboxImg.src = imgElement.src;
             lightboxImg.alt = imgElement.alt;
             lightbox.classList.add('active');
             document.body.classList.add('no-scroll');
-            
-            // Đẩy trạng thái ảo vào lịch sử (Hỗ trợ điện thoại)
-            window.history.pushState({ isLightbox: true }, '');
+            window.history.pushState({ isLightboxOpen: true }, ''); // Tạo 1 bước lịch sử ảo
         }
 
-        // Hàm đóng giao diện ảnh
+        // Hàm Đóng giao diện
         function closeLightboxUI() {
             lightbox.classList.remove('active');
             document.body.classList.remove('no-scroll');
         }
 
-        // Hàm xử lý khi người dùng chủ động đóng ảnh
-        function handleManualClose() {
-            if (lightbox.classList.contains('active')) {
-                closeLightboxUI();
-                window.history.back(); // Rút lại trạng thái ảo đã tạo trước đó
-            }
-        }
-
-        // Bắt sự kiện click vào ảnh
+        // Bắt sự kiện Click để MỞ ảnh
         cardImages.forEach(img => {
             img.addEventListener('click', function() {
                 openLightbox(this);
             });
         });
 
-        // Đóng ảnh bằng nút X
+        // Hàm Xử lý khi người dùng CHỦ ĐỘNG đóng (bấm X, bấm ngoài, bấm ESC)
+        function handleManualClose() {
+            if (lightbox.classList.contains('active')) {
+                window.history.back(); // Lệnh này sẽ tự động kích hoạt sự kiện 'popstate' bên dưới
+            }
+        }
+
         closeBtn.addEventListener('click', handleManualClose);
 
-        // Đóng ảnh khi bấm ra ngoài (Nền đen)
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
                 handleManualClose();
             }
         });
 
-        // Đóng ảnh bằng phím ESC trên bàn phím
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' || e.key === 'Esc') {
                 handleManualClose();
             }
         });
 
-        // Xử lý sự kiện "Back" trên trình duyệt hoặc vuốt màn hình đện thoại
+        // Bắt sự kiện Lùi Lịch Sử (Khi gọi history.back() hoặc người dùng vuốt điện thoại)
         window.addEventListener('popstate', (e) => {
             if (lightbox.classList.contains('active')) {
-                closeLightboxUI();
-            }
-        });
-    </script>
-
-</body>
-</html>
+                closeLightboxUI(); // Tự động dọn dẹp giao diện khi lịch sử bị lùi
+           
