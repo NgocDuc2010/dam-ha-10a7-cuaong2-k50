@@ -3,132 +3,539 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khám phá Đầm Hà - Quảng Ninh</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Khám Phá Đầm Hà - Gian Hàng Chợ Quê</title>
+    <style>
+        /* ========================================================
+           1. HỆ THỐNG BIẾN MÀU SẮC (CSS VARIABLES)
+           ======================================================== */
+        :root {
+            --bg-color: #f9f6f0;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --header-bg: #2e7d32;
+            --header-gradient: linear-gradient(135deg, #2e7d32, #1b5e20);
+            --title-color: #d84315;
+            --footer-bg: #222222;
+            --nav-bg: rgba(46, 125, 50, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.4s;
+        }
+
+        /* Giao diện Tối */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: #1b5e20;
+            --header-gradient: linear-gradient(135deg, #1b5e20, #0a2e0e);
+            --title-color: #ff8a65;
+            --footer-bg: #000000;
+            --nav-bg: rgba(10, 46, 14, 0.95);
+            --shadow-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ========================================================
+           2. CÀI ĐẶT CƠ BẢN (RESET & TYPOGRAPHY)
+           ======================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Cuộn mượt khi bấm menu */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        body.no-scroll {
+            overflow: hidden; /* Khóa cuộn trang khi mở ảnh */
+        }
+
+        /* ========================================================
+           3. HIỆU ỨNG (ANIMATIONS)
+           ======================================================== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* ========================================================
+           4. THANH ĐIỀU HƯỚNG (NAVBAR)
+           ======================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            padding: 12px 0;
+            z-index: 2000;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            backdrop-filter: blur(8px);
+            transition: background-color var(--transition-speed);
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05em;
+            padding: 8px 20px;
+            border-radius: 30px; /* Bo tròn mượt mà */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================================
+           5. HEADER CHÍNH
+           ======================================================== */
+        header {
+            background: var(--header-gradient);
+            color: white;
+            text-align: center;
+            padding: 140px 20px 80px 20px;
+            transition: background var(--transition-speed);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); /* Cắt góc tạo điểm nhấn */
+        }
+
+        header h1 {
+            font-size: clamp(2em, 5vw, 3.5em);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-size: clamp(1.1em, 3vw, 1.3em);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* ========================================================
+           6. BỐ CỤC CHÍNH VÀ CÁC THẺ (CARDS)
+           ======================================================== */
+        main.container {
+            max-width: 1200px;
+            margin: -30px auto 0 auto; /* Đẩy nội dung lên một chút để che lấp phần clip-path */
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        section.section-target {
+            scroll-margin-top: 100px; /* Đảm bảo Menu không đè tiêu đề */
+            margin-bottom: 60px;
+        }
+
+        h2.section-title {
+            text-align: center;
+            color: var(--title-color);
+            font-size: clamp(1.8em, 4vw, 2.5em);
+            border-bottom: 3px solid var(--title-color);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin: 20px auto 40px auto;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        article.card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        article.card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        article.card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            background-color: #e0e0e0; /* Nền dự phòng */
+            transition: transform 0.5s ease;
+            cursor: zoom-in;
+            display: block;
+        }
+
+        article.card:hover img {
+            transform: scale(1.08);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            color: var(--header-bg);
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            transition: color var(--transition-speed);
+        }
+
+        .card-content p {
+            text-align: justify;
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        /* ========================================================
+           7. CÔNG CỤ HIỂN THỊ ẢNH TO (LIGHTBOX)
+           ======================================================== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.9);
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            z-index: 3001;
+        }
+
+        .close-lightbox:hover {
+            color: var(--title-color);
+            transform: rotate(90deg);
+        }
+
+        /* ========================================================
+           8. CÁC NÚT BẤM TIỆN ÍCH
+           ======================================================== */
+        .floating-btn {
+            position: fixed;
+            right: 30px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #theme-toggle {
+            bottom: 30px;
+            background-color: var(--title-color);
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        #back-to-top {
+            bottom: 90px;
+            background-color: var(--header-bg);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        #back-to-top:hover {
+            background-color: var(--title-color);
+            transform: scale(1.1) translateY(-3px);
+        }
+
+        /* ========================================================
+           9. CHÂN TRANG (FOOTER)
+           ======================================================== */
+        footer {
+            background-color: var(--footer-bg);
+            color: #ffffff;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 40px;
+            transition: background-color var(--transition-speed);
+        }
+
+        footer p {
+            margin: 10px 0;
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Đầm Hà Tourism</div>
-        <nav>
-            <ul>
-                <li><a href="#tong-quan">Tổng quan</a></li>
-                <li><a href="#dia-danh">Địa danh</a></li>
-                <li><a href="#dac-san">Đặc sản</a></li>
-            </ul>
-        </nav>
+    <nav>
+        <ul>
+            <li><a href="#gioi-thieu">Giới Thiệu</a></li>
+            <li><a href="#dia-diem">Cảnh Đẹp</a></li>
+            <li><a href="#dac-san">Món Ngon</a></li>
+        </ul>
+    </nav>
+
+    <button id="back-to-top" class="floating-btn" aria-label="Lên đầu trang" title="Lên đầu trang">⬆️</button>
+    <button id="theme-toggle" class="floating-btn" aria-label="Chuyển đổi giao diện">🌙 Giao diện tối</button>
+
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+        <span class="close-lightbox" aria-label="Đóng ảnh" title="Đóng">&times;</span>
+        <img id="lightbox-img" src="" alt="Ảnh phóng to">
+    </div>
+
+    <header class="fade-in">
+        <h1>Hương Vị & Sắc Màu Đầm Hà</h1>
+        <p>Chào mừng đến với gian hàng chợ quê của lớp chúng mình! Cùng khám phá vùng đất Đầm Hà (Quảng Ninh) hoang sơ và đậm đà bản sắc.</p>
     </header>
 
-    <section id="tong-quan" class="hero fade-in">
-        <h1>Chào mừng đến với Đầm Hà</h1>
-        <p>Khám phá vẻ đẹp thiên nhiên hoang sơ và nền ẩm thực phong phú của huyện miền núi ven biển Quảng Ninh.</p>
-    </section>
-
-    <section id="dia-danh" class="content-section bg-light">
-        <h2 class="fade-in">Địa danh nổi bật tại Đầm Hà</h2>
-        <p class="section-desc fade-in">Khám phá những điểm đến hoang sơ và đậm đà bản sắc văn hóa.</p>
+    <main class="container">
         
-        <div class="grid-container">
-            <div class="card fade-in">
-                <img src="images/thacbanhvan.webp" alt="Thác Bạch Vân">
-                <div class="card-content">
-                    <h3>Thác Bạch Vân</h3>
-                    <p>Ngọn thác tuyệt đẹp với 5 tầng nước tung bọt trắng xóa, nằm ẩn mình giữa cánh rừng nguyên sinh hoang sơ. Thích hợp cho những chuyến dã ngoại cuối tuần.</p>
-                </div>
-            </div>
+        <section id="gioi-thieu" class="fade-in section-target" style="text-align: center; font-size: 1.15em; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <p><strong>Đầm Hà</strong> là một huyện ven biển phía Đông Bắc của tỉnh Quảng Ninh. Nơi đây chưa bị thương mại hóa nhiều nên vẫn giữ được vẻ đẹp thiên nhiên hoang sơ, thanh bình cùng những giá trị lịch sử, văn hóa độc đáo. Hãy cùng chiêm ngưỡng cảnh sắc và nếm thử mỹ vị nơi đây!</p>
+        </section>
 
-            <div class="card fade-in">
-                <img src="images/dinhdamha.webp" alt="Đình Đầm Hà">
-                <div class="card-content">
-                    <h3>Đình Đầm Hà</h3>
-                    <p>Ngôi đình cổ kính mang đậm dấu ấn kiến trúc truyền thống, là trung tâm sinh hoạt văn hóa tín ngưỡng và nơi diễn ra lễ hội đình Đầm Hà đặc sắc.</p>
-                </div>
+        <section id="dia-diem" class="fade-in section-target">
+            <h2 class="section-title">Điểm Đến Chơi Quên Lối Về</h2>
+            <div class="grid-layout">
+                <article class="card">
+                    <img src="images/daodadung.webp" alt="Đảo Đá Dựng">
+                    <div class="card-content">
+                        <h3>Đảo Đá Dựng</h3>
+                        <p>Hòn đảo nhỏ tuyệt đẹp giữa vùng biển Đầm Hà. Gây ấn tượng bởi làn nước xanh ngọc bích, bãi cát trắng mịn và những mỏm đá mang hình thù độc đáo. Điểm đến lý tưởng để tìm sự yên tĩnh.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/thacbachvan.webp" alt="Thác Bạch Vân">
+                    <div class="card-content">
+                        <h3>Thác Bạch Vân</h3>
+                        <p>Ngọn thác kỳ vĩ với 5 tầng thác, cao gần 70m. Để lên đỉnh, bạn sẽ băng qua những thửa ruộng bậc thang tuyệt đẹp. Nước tung bọt trắng xóa giữa núi rừng hoang sơ như chốn bồng lai.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/nuihua.webp" alt="Núi Hứa">
+                    <div class="card-content">
+                        <h3>Rừng Cò Núi Hứa</h3>
+                        <p>Nằm tại xã Đại Bình, không chỉ là di tích lịch sử cách mạng mà còn nổi tiếng với "Rừng Cò". Chiêm ngưỡng hàng ngàn chú cò trắng chao lượn dưới ánh nắng chiều tà thật bình yên.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/dinhdamha.webp" alt="Đình Đầm Hà">
+                    <div class="card-content">
+                        <h3>Đình Đầm Hà</h3>
+                        <p>Công trình kiến trúc văn hóa tín ngưỡng tiêu biểu mang đậm dấu ấn lịch sử. Nơi đây diễn ra Lễ hội Đình Đầm Hà truyền thống vào dịp đầu năm, thu hút đông đảo du khách với các nghi lễ rước thần, hát nhà tơ và múa cửa đình.</p>
+                    </div>
+                </article>
             </div>
+        </section>
 
-            <div class="card fade-in">
-                <img src="images/rungconuicai.webp" alt="Rừng cò núi Cái">
-                <div class="card-content">
-                    <h3>Rừng cò núi Cái</h3>
-                    <p>Khu bảo tồn sinh thái yên bình, nơi hàng ngàn cánh cò trắng bay về mỗi buổi hoàng hôn, tạo nên bức tranh thiên nhiên tuyệt đẹp.</p>
-                </div>
+        <section id="dac-san" class="fade-in section-target" style="animation-delay: 0.2s;">
+            <h2 class="section-title">Món Ngon Níu Chân Du Khách</h2>
+            <div class="grid-layout">
+                <article class="card">
+                    <img src="images/gabandamha.webp" alt="Gà bản Đầm Hà">
+                    <div class="card-content">
+                        <h3>Gà Bản (Gà leo cây)</h3>
+                        <p>Được mệnh danh là "gà khoác áo hoa", ban ngày chạy bộ, tối leo cây ngủ. Da gà vàng óng, giòn sần sật, thịt săn chắc, ngọt, thơm nồng mùi gừng và béo mà không ngán.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/ngansao.webp" alt="Ngan sao Đại Bình">
+                    <div class="card-content">
+                        <h3>Ngan Sao Đại Bình</h3>
+                        <p>Sản phẩm OCOP 3 sao trứ danh. Ngan sao có thân hình nhỏ, lông khoang đen trắng xanh. Nuôi bằng thức ăn tự nhiên giúp thịt ngan thơm ngon, mềm ngọt vượt trội.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/cucaiphen.webp" alt="Củ Cải Phên">
+                    <div class="card-content">
+                        <h3>Củ Cải Phên</h3>
+                        <p>Củ cải được thái, ướp muối và phơi khô trên phên nứa. Đây là nguyên liệu dân dã nhưng cực kỳ quan trọng, tạo nên độ giòn, vị đậm đà đặc trưng khó quên cho món ăn người dân Đầm Hà.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/khaunhuc.webp" alt="Khâu Nhục Đầm Hà">
+                    <div class="card-content">
+                        <h3>Khâu Nhục</h3>
+                        <p>Món ăn "linh hồn" trong mâm cỗ. Thịt ba chỉ luộc, châm da, chiên vàng rồi hấp cách thủy nhiều giờ cùng củ cải phên và gia vị. Miếng thịt mềm rục, tươm mỡ béo ngậy, tan ngay trong miệng.</p>
+                    </div>
+                </article>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="dac-san" class="content-section">
-        <h2 class="fade-in">Ẩm thực đặc sắc Đầm Hà</h2>
-        <p class="section-desc fade-in">Hương vị đậm đà, khó quên của vùng đất ven biển.</p>
-        
-        <div class="grid-container">
-            <div class="card fade-in">
-                <img src="images/gabandamha.webp" alt="Gà bản Đầm Hà">
-                <div class="card-content">
-                    <h3>Gà bản Đầm Hà</h3>
-                    <p>Giống gà râu bản địa chăn thả tự nhiên. Thịt gà săn chắc, da giòn sần sật, vị ngọt đậm đà. Thường được luộc rắc lá chanh để giữ nguyên hương vị.</p>
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <img src="images/khaunhuc.webp" alt="Khấu nhục">
-                <div class="card-content">
-                    <h3>Khấu nhục</h3>
-                    <p>Món ăn truyền thống không thể thiếu trong dịp lễ, tết. Thịt ba chỉ được hấp cách thủy nhiều giờ cùng húng lìu, ngũ vị hương, tỏi, xì dầu... tạo nên sự mềm rục.</p>
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <img src="images/cucaidamha.webp" alt="Củ cải Đầm Hà">
-                <div class="card-content">
-                    <h3>Củ cải Đầm Hà</h3>
-                    <p>Giống củ cải đặc trưng có độ giòn, ngọt thanh. Người dân thường thái sợi phơi khô rắc muối làm "ca la thầu", dùng để xào thịt lợn hoặc nấu canh cực đưa cơm.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Xây dựng bởi bạn và Đối tác lập trình.</p>
+        <p>Cảm ơn thầy cô và các bạn đã ghé thăm gian hàng chợ quê của lớp chúng mình!</p>
+        <p><i>Kính chúc mọi người một ngày hội vui vẻ và ý nghĩa!</i></p>
     </footer>
 
-    <button id="backToTopBtn" title="Lên đầu trang">&#8593;</button>
-
     <script>
-        // 1. Xử lý hiệu ứng Fade-in khi cuộn
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = { threshold: 0.1 };
-
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('appear');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
+        /* --- XỬ LÝ GIAO DIỆN TỐI/SÁNG --- */
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggleBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Giao diện sáng' : '🌙 Giao diện tối';
         });
 
-        // 2. Xử lý nút Cuộn lên đầu trang
-        const backToTopBtn = document.getElementById("backToTopBtn");
-
-        window.addEventListener("scroll", () => {
+        /* --- XỬ LÝ NÚT CUỘN LÊN ĐẦU TRANG --- */
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
-                backToTopBtn.classList.add("show");
+                backToTopBtn.classList.add('show');
             } else {
-                backToTopBtn.classList.remove("show");
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* --- XỬ LÝ LIGHTBOX CHUYÊN NGHIỆP (Hỗ trợ Vuốt/Back/Esc) --- */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.close-lightbox');
+        const cardImages = document.querySelectorAll('.card img');
+
+        // Hàm mở ảnh và lưu trạng thái vào lịch sử trình duyệt
+        function openLightbox(imgElement) {
+            lightboxImg.src = imgElement.src;
+            lightboxImg.alt = imgElement.alt;
+            lightbox.classList.add('active');
+            document.body.classList.add('no-scroll');
+            
+            // Đẩy trạng thái ảo vào lịch sử (Hỗ trợ điện thoại)
+            window.history.pushState({ isLightbox: true }, '');
+        }
+
+        // Hàm đóng giao diện ảnh
+        function closeLightboxUI() {
+            lightbox.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+
+        // Hàm xử lý khi người dùng chủ động đóng ảnh
+        function handleManualClose() {
+            if (lightbox.classList.contains('active')) {
+                closeLightboxUI();
+                window.history.back(); // Rút lại trạng thái ảo đã tạo trước đó
+            }
+        }
+
+        // Bắt sự kiện click vào ảnh
+        cardImages.forEach(img => {
+            img.addEventListener('click', function() {
+                openLightbox(this);
+            });
+        });
+
+        // Đóng ảnh bằng nút X
+        closeBtn.addEventListener('click', handleManualClose);
+
+        // Đóng ảnh khi bấm ra ngoài (Nền đen)
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                handleManualClose();
             }
         });
 
-        backToTopBtn.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+        // Đóng ảnh bằng phím ESC trên bàn phím
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                handleManualClose();
+            }
+        });
+
+        // Xử lý sự kiện "Back" trên trình duyệt hoặc vuốt màn hình đện thoại
+        window.addEventListener('popstate', (e) => {
+            if (lightbox.classList.contains('active')) {
+                closeLightboxUI();
+            }
         });
     </script>
+
 </body>
 </html>
