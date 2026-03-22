@@ -3,127 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phản Hồi - Gian Hàng Đầm Hà</title>
-    <style>
-        /* ========================================================
-           1. HỆ THỐNG BIẾN MÀU SẮC ĐỒNG BỘ
-           ======================================================== */
-        :root {
-            --bg-color: #f9f6f0;
-            --text-color: #333333;
-            --header-bg: #2e7d32;
-            --title-color: #d84315;
-            --nav-bg: rgba(46, 125, 50, 0.95);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --transition-speed: 0.3s;
-        }
-
-        body.dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --header-bg: #1b5e20;
-            --title-color: #ff8a65;
-            --nav-bg: rgba(10, 46, 14, 0.95);
-            --shadow-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* ========================================================
-           2. CÀI ĐẶT CƠ BẢN
-           ======================================================== */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            transition: background-color var(--transition-speed), color var(--transition-speed);
-            display: flex; flex-direction: column; min-height: 100vh;
-        }
-
-        /* ========================================================
-           3. THANH ĐIỀU HƯỚNG (NAV)
-           ======================================================== */
-        nav {
-            background-color: var(--nav-bg); padding: 10px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        }
-
-        nav a.back-btn {
-            color: white; text-decoration: none; font-weight: bold; font-size: 1.05em;
-            display: flex; align-items: center; gap: 5px; transition: transform 0.3s ease;
-        }
-        nav a.back-btn:hover { transform: translateX(-5px); }
-
-        #theme-toggle {
-            background: transparent; border: none; font-size: 1.5em; cursor: pointer; color: white;
-            width: 44px; height: 44px; border-radius: 50%;
-            transition: transform 0.3s ease, background-color var(--transition-speed);
-            display: flex; align-items: center; justify-content: center;
-        }
-        #theme-toggle:hover { background-color: rgba(255, 255, 255, 0.2); transform: scale(1.1) rotate(15deg); }
-
-        /* ========================================================
-           4. KHU VỰC THÔNG BÁO Ở GIỮA
-           ======================================================== */
-        .coming-soon-container {
-            flex-grow: 1; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 20px; animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .icon { font-size: 4em; margin-bottom: 20px; animation: bounce 2s infinite ease-in-out; user-select: none; }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        h1 { color: var(--title-color); font-size: clamp(1.4em, 4vw, 2.2em); margin-bottom: 15px; max-width: 600px; line-height: 1.4; }
-        .expected-time { font-size: 1.1em; font-style: italic; opacity: 0.6; font-weight: 600; }
-    </style>
+    <title>Góp ý - Gian Hàng Chợ Quê Đầm Hà</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        try { if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode-init'); } catch (e) {}
+    </script>
 </head>
 <body>
 
-    <script>
-        try {
-            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
-        } catch (e) {}
-    </script>
-
-    <nav>
-        <a href="index.html" class="back-btn">&larr; Về Trang Chủ</a>
-        <button id="theme-toggle" aria-label="Đổi giao diện" title="Đổi màu nền">🌙</button>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-spacer"></div>
+            <ul>
+                <li><a href="index.html#gioi-thieu">Giới Thiệu</a></li>
+                <li><a href="index.html#dia-diem">Cảnh Quan</a></li>
+                <li><a href="index.html#trai-nghiem">Trải Nghiệm</a></li>
+                <li><a href="index.html#dac-san">Ẩm Thực</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Đổi giao diện" title="Đổi màu nền">🌙</button>
+        </div>
     </nav>
 
-    <main class="coming-soon-container">
-        <div class="icon">🚧</div> 
-        <h1>Tính năng chưa có sẵn, vui lòng chờ cập nhật trong tương lai.</h1>
-        <p class="expected-time">Dự kiến: 6 ngày</p>
+    <header class="fade-in" style="padding: 120px 20px 60px 20px;">
+        <h1 style="font-size: clamp(1.8em, 4vw, 3em);">Đánh Giá & Góp Ý</h1>
+        <p>Cảm ơn bạn đã ghé thăm. Hãy để lại vài lời nhắn cho chúng mình nhé!</p>
+    </header>
+
+    <main class="container reveal">
+        <div class="form-container card">
+            <h2 class="form-title" style="text-align: center; color: var(--title-color); margin-bottom: 20px; font-size: 1.8em;">Gửi lời nhắn</h2>
+            
+            <form action="#" method="POST" class="custom-form">
+                <div class="form-group">
+                    <label for="name">Tên của bạn:</label>
+                    <input type="text" id="name" name="name" placeholder="Ví dụ: Nguyễn Văn A" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="favorite">Bạn ấn tượng nhất với phần nào?</label>
+                    <select id="favorite" name="favorite">
+                        <option value="canh-quan">Cảnh Quan Thiên Nhiên</option>
+                        <option value="van-hoa">Trải Nghiệm Văn Hóa</option>
+                        <option value="am-thuc">Ẩm Thực Đặc Sản</option>
+                        <option value="tat-ca">Mình thích tất cả!</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Góp ý thêm (Tùy chọn):</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Bạn có muốn chúng mình cải thiện điều gì không?"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <a href="index.html" class="btn-secondary">← Trở về</a>
+                    <button type="submit" class="feedback-btn" style="border: none; cursor: pointer;">Gửi Đi 🚀</button>
+                </div>
+            </form>
+            
+            <p class="beta-text" style="text-align: center; margin-top: 25px;">Đang trong giai đoạn thử nghiệm</p>
+        </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeBtn = document.getElementById('theme-toggle');
-            if (themeBtn) {
-                // Đặt Icon ban đầu
-                themeBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-                
-                themeBtn.addEventListener('click', () => {
-                    document.body.classList.toggle('dark-mode');
-                    const isDark = document.body.classList.contains('dark-mode');
-                    themeBtn.innerHTML = isDark ? '☀️' : '🌙';
-                    // Đồng bộ bộ nhớ an toàn
-                    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
-                });
-            }
-        });
-    </script>
+    <footer style="margin-top: auto;">
+        <p><strong>Gian Hàng Chợ Quê Đầm Hà</strong> - Dự án của Lớp Chúng Mình</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
