@@ -19,9 +19,10 @@
             --footer-bg: #222222;
             --nav-bg: rgba(46, 125, 50, 0.95);
             --shadow-color: rgba(0, 0, 0, 0.1);
-            --transition-speed: 0.4s;
+            --transition-speed: 0.3s;
         }
 
+        /* Giao diện tối được gắn vào thẻ body */
         body.dark-mode {
             --bg-color: #121212;
             --text-color: #e0e0e0;
@@ -63,7 +64,7 @@
             position: fixed; top: 0; left: 0; width: 100%;
             background-color: var(--nav-bg); padding: 10px 0; z-index: 2000;
             box-shadow: 0 4px 15px var(--shadow-color);
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             transform: translateY(0);
             transition: transform 0.4s ease-in-out, background-color var(--transition-speed);
         }
@@ -73,7 +74,7 @@
             justify-content: space-between; align-items: center; padding: 0 20px;
         }
 
-        .nav-spacer { width: 40px; }
+        .nav-spacer { width: 44px; } /* Cân bằng chính xác với nút Theme */
 
         nav ul {
             list-style-type: none; display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;
@@ -92,8 +93,8 @@
         }
 
         #theme-toggle {
-            background: transparent; border: none; font-size: 1.4em; cursor: pointer;
-            width: 40px; height: 40px; border-radius: 50%;
+            background: transparent; border: none; font-size: 1.5em; cursor: pointer;
+            width: 44px; height: 44px; border-radius: 50%;
             transition: transform 0.3s ease, background-color 0.3s ease;
             display: flex; align-items: center; justify-content: center;
         }
@@ -174,7 +175,7 @@
             display: flex; justify-content: center; align-items: center;
             opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
-            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         }
 
         .lightbox-overlay.show { opacity: 1; visibility: visible; }
@@ -198,7 +199,7 @@
         .close-lightbox:hover { color: var(--title-color); transform: rotate(90deg); }
 
         /* ========================================================
-           7. NÚT CUỘN LÊN ĐẦU TRANG (KÝ TỰ HOÀN HẢO)
+           7. NÚT CUỘN LÊN ĐẦU TRANG
            ======================================================== */
         #back-to-top {
             position: fixed; right: 20px; bottom: 30px; background-color: var(--header-bg);
@@ -207,15 +208,30 @@
             opacity: 0; visibility: hidden; transform: translateY(20px);
             cursor: pointer; box-shadow: 0 4px 15px var(--shadow-color); z-index: 1000;
             transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
-            padding-bottom: 3px; /* Căn giữa quang học cho mũi tên */
+            padding-bottom: 3px;
         }
 
         #back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
         #back-to-top:hover { background-color: var(--title-color); transform: scale(1.1) translateY(-3px); }
 
         /* ========================================================
-           8. CHÂN TRANG (FOOTER)
+           8. KHU VỰC NÚT ĐÁNH GIÁ & CHÂN TRANG
            ======================================================== */
+        .feedback-section {
+            text-align: center; padding: 20px; margin-bottom: 40px;
+        }
+
+        .feedback-btn {
+            display: inline-block; background-color: var(--title-color); color: white;
+            padding: 15px 40px; font-size: 1.2em; font-weight: bold; text-decoration: none;
+            border-radius: 50px; box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .feedback-btn:hover {
+            transform: translateY(-5px) scale(1.05); background-color: #bf360c; color: white;
+        }
+
         footer {
             background-color: var(--footer-bg); color: #ffffff; text-align: center;
             padding: 40px 20px; transition: background-color var(--transition-speed);
@@ -233,14 +249,14 @@
                 <li><a href="#dia-diem">Cảnh Đẹp</a></li>
                 <li><a href="#dac-san">Món Ngon</a></li>
             </ul>
-            <button id="theme-toggle" aria-label="Đổi giao diện">🌙</button>
+            <button id="theme-toggle" aria-label="Đổi giao diện" title="Đổi màu nền">🌙</button>
         </div>
     </nav>
 
-    <button id="back-to-top" aria-label="Lên đầu trang">&uarr;</button>
+    <button id="back-to-top" aria-label="Lên đầu trang" title="Trở lên trên">&uarr;</button>
 
     <div id="lightbox-overlay" class="lightbox-overlay">
-        <button id="close-lightbox" class="close-lightbox">&times;</button>
+        <button id="close-lightbox" class="close-lightbox" title="Đóng">&times;</button>
         <img id="lightbox-image" class="lightbox-image" alt="Ảnh phóng to">
     </div>
 
@@ -322,6 +338,10 @@
                 </article>
             </div>
         </section>
+
+        <div class="feedback-section fade-in">
+            <a href="feedback.html" class="feedback-btn">📝 Đánh giá & Phản hồi</a>
+        </div>
     </main>
 
     <footer>
@@ -330,14 +350,14 @@
     </footer>
 
     <script>
-        // --- 1. GIAO DIỆN TỐI (DARK MODE) ---
+        // --- 1. GIAO DIỆN TỐI (Tác động vào Body) ---
         const themeToggleBtn = document.getElementById('theme-toggle');
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             themeToggleBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         });
 
-        // --- 2. THANH MENU & NÚT LÊN ĐẦU TRANG ---
+        // --- 2. MENU THÔNG MINH & NÚT LÊN ĐẦU TRANG ---
         const navbar = document.getElementById('navbar');
         const backToTopBtn = document.getElementById('back-to-top');
         let lastScrollY = window.scrollY || document.documentElement.scrollTop;
@@ -345,7 +365,7 @@
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY || document.documentElement.scrollTop;
 
-            // Xử lý Menu thông minh
+            // Xử lý ẩn/hiện Navbar
             if (currentScrollY > lastScrollY && currentScrollY > 120) {
                 navbar.style.transform = 'translateY(-100%)'; 
             } else {
@@ -353,7 +373,7 @@
             }
             lastScrollY = currentScrollY;
 
-            // Xử lý nút Lên đầu trang
+            // Xử lý ẩn/hiện nút Lên đầu trang
             if (currentScrollY > 400) {
                 backToTopBtn.classList.add('show');
             } else {
@@ -365,7 +385,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // --- 3. LIGHTBOX HIỆN ĐẠI (CHỐNG LỖI MÔI TRƯỜNG GIẢ LẬP) ---
+        // --- 3. LIGHTBOX HIỆN ĐẠI (HỖ TRỢ ĐIỆN THOẠI & TRÌNH DUYỆT GIẢ LẬP) ---
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         const lightboxImage = document.getElementById('lightbox-image');
         const closeLightboxBtn = document.getElementById('close-lightbox');
@@ -377,17 +397,21 @@
             lightboxOverlay.classList.add('show');
             document.body.classList.add('no-scroll');
 
+            // Bảo vệ code bằng try...catch khi môi trường chặn History API
             try {
                 window.history.pushState({ isLightboxOpen: true }, ''); 
             } catch (e) {
-                console.warn("Chế độ Lịch sử bị chặn. Nút Back cơ bản đã được bật.");
+                console.warn("Trình duyệt chặn History API. Nút Back cơ bản vẫn hoạt động.");
             }
         }
 
         function closeLightboxUI() {
             lightboxOverlay.classList.remove('show');
             document.body.classList.remove('no-scroll');
-            setTimeout(() => { lightboxImage.removeAttribute('src'); }, 300);
+            setTimeout(() => { 
+                lightboxImage.removeAttribute('src'); 
+                lightboxImage.removeAttribute('alt'); 
+            }, 300);
         }
 
         cardImages.forEach(img => {
@@ -398,10 +422,11 @@
             if (!lightboxOverlay.classList.contains('show')) return;
 
             try {
+                // Kiểm tra nếu có trạng thái ảo thì lùi lại (kích hoạt popstate)
                 if (window.history.state && window.history.state.isLightboxOpen) {
-                    window.history.back();
+                    window.history.back(); 
                 } else {
-                    closeLightboxUI();
+                    closeLightboxUI(); 
                 }
             } catch (e) {
                 closeLightboxUI();
@@ -415,14 +440,4 @@
         });
         
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' || e.key === 'Esc') triggerClose();
-        });
-
-        window.addEventListener('popstate', (e) => {
-            if (lightboxOverlay.classList.contains('show')) {
-                closeLightboxUI();
-            }
-        });
-    </script>
-</body>
-</html>
+      
