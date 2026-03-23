@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- 1. CHẾ ĐỘ TỐI (DARK MODE) ---
+    // =========================================================
+    // 1. CHẾ ĐỘ TỐI (DARK MODE)
+    // =========================================================
     try {
         const themeBtn = document.getElementById('theme-toggle');
         if (themeBtn) {
@@ -18,9 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch(e){}
             });
         }
-    } catch (err) {}
+    } catch (err) { console.warn("Lỗi Theme"); }
 
-    // --- 2. HIỆU ỨNG HIỆN DẦN (SCROLL REVEAL) ---
+    // =========================================================
+    // 2. HIỆU ỨNG HIỆN DẦN (SCROLL REVEAL)
+    // =========================================================
     try {
         const reveals = document.querySelectorAll('.reveal');
         if ('IntersectionObserver' in window) {
@@ -28,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        obs.unobserve(entry.target); // Chạy 1 lần cho mượt
+                        obs.unobserve(entry.target); // Chạy mượt 1 lần, chống giật
                     }
                 });
             }, { threshold: 0.15 });
@@ -41,7 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
     }
 
-    // --- 3. MENU ẨN HIỆN & NÚT LÊN ĐẦU ---
+    // =========================================================
+    // 3. CUỘN TRANG (MENU ẨN HIỆN & NÚT LÊN ĐẦU)
+    // =========================================================
     try {
         const nav = document.getElementById('navbar');
         const btt = document.getElementById('back-to-top');
@@ -70,9 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         if (btt) btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    } catch (err) {}
+    } catch (err) { console.warn("Lỗi Scroll"); }
 
-    // --- 4. PHÓNG TO ẢNH (LIGHTBOX DOM-API THUẦN) ---
+    // =========================================================
+    // 4. PHÓNG TO ẢNH ĐỈNH CAO (HỖ TRỢ MOBILE BACK & ESC KEY)
+    // =========================================================
     try {
         const lbOverlay = document.getElementById('lightbox-overlay');
         const lbImage = document.getElementById('lightbox-image');
@@ -85,10 +93,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 lbImage.alt = alt || '';
                 lbOverlay.classList.add('show');
                 document.body.classList.add('no-scroll');
+                
+                // Thủ thuật dùng Hash URL để bắt nút Back trên điện thoại
+                try { window.location.hash = 'zoom'; } catch(e) {}
             }
         }
 
-        function closeLightbox() {
+        function closeLightboxUI() {
             if (lbOverlay) {
                 lbOverlay.classList.remove('show');
                 document.body.classList.remove('no-scroll');
@@ -96,14 +107,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        function requestCloseLightbox() {
+            if (window.location.hash === '#zoom') {
+                try { window.history.back(); } catch(e) { window.location.hash = ''; closeLightboxUI(); }
+            } else {
+                closeLightboxUI();
+            }
+        }
+
+        // Bắt sự kiện Hash URL (Khi bấm nút Back ĐT)
+        window.addEventListener('hashchange', function() {
+            if (window.location.hash !== '#zoom') closeLightboxUI();
+        });
+
         images.forEach(img => {
             img.addEventListener('click', function() { openLightbox(this.src, this.alt); });
         });
 
-        if (lbClose) lbClose.addEventListener('click', closeLightbox);
-        if (lbOverlay) lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) closeLightbox(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' || e.key === 'Esc') closeLightbox(); });
-    } catch (err) {}
+        if (lbClose) lbClose.addEventListener('click', requestCloseLightbox);
+        if (lbOverlay) lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) requestCloseLightbox(); });
+        
+        // Bắt đa dạng phím ESC (Chống lỗi giả lập)
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) requestCloseLightbox(); 
+        });
+
+    } catch (err) { console.warn("Lỗi Lightbox"); }
     
 });
-
