@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
 
-    // 3. Hiệu ứng Scroll Reveal an toàn
+    // 3. Hiệu ứng Scroll Reveal
     const reveals = document.querySelectorAll(".reveal");
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reveals.forEach(reveal => revealObserver.observe(reveal));
 
-    // 4. Modal Zoom Ảnh (Xử lý mượt History API cho Mobile & PC)
+    // 4. Modal Zoom Ảnh (Khóa History API an toàn)
     const modal = document.getElementById("image-modal");
     const modalImg = document.getElementById("modal-img");
     const closeBtn = document.getElementById("close-modal");
@@ -80,7 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
     closeBtn.addEventListener("click", requestCloseModal);
     
     modal.addEventListener("click", (e) => {
-        if (e.target === modal) requestCloseModal();
+        if (e.target === modal) {
+            requestCloseModal();
+        }
     });
 
     document.addEventListener("keydown", (e) => {
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // 6. ScrollSpy (Nhận diện mục đang đọc)
+    // 6. ScrollSpy (Highlight menu chuẩn xác)
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll(".scrollable-nav a");
 
@@ -129,12 +131,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 7. Click Menu cuộn mượt bằng JS (Khắc phục lỗi chớp trắng)
+    // 7. Tự điều khiển Scroll mượt (Sửa lỗi giật chớp trang)
     navLinks.forEach(link => {
         link.addEventListener("click", function(e) {
             const targetId = this.getAttribute("href");
             
-            // Chỉ bắt sự kiện nếu ID hợp lệ
             if(targetId && targetId.startsWith("#") && targetId.length > 1) {
                 e.preventDefault(); 
                 
