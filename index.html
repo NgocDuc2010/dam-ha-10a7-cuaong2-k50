@@ -3,159 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Khám phá gian hàng chợ quê lớp chúng mình với cảnh quan Đầm Hà, trải nghiệm văn hóa độc đáo và ẩm thực OCOP trứ danh.">
-    <title>Khám Phá Đầm Hà - Gian Hàng Chợ Quê</title>
-
+    <meta name="description" content="Trang web giới thiệu về huyện Đầm Hà, Quảng Ninh và các sản phẩm OCOP đặc sản. Gian hàng chợ quê lớp 10A7 - THPT Cửa Ông.">
+    <title>Đầm Hà - Viên Ngọc Đông Bắc | Gian hàng 10A7</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
-    <script>
-        try { if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode-init'); } catch (e) {}
-    </script>
 </head>
 <body>
-
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-spacer"></div>
-            <ul>
-                <li><a href="#gioi-thieu">Giới Thiệu</a></li>
-                <li><a href="#dia-diem">Cảnh Quan</a></li>
-                <li><a href="#trai-nghiem">Trải Nghiệm</a></li>
-                <li><a href="#dac-san">Ẩm Thực</a></li>
-            </ul>
-            <button id="theme-toggle" aria-label="Đổi giao diện" title="Đổi màu nền">🌙</button>
-        </div>
-    </nav>
-
-    <button id="back-to-top" aria-label="Lên đầu trang" title="Trở lên trên">&uarr;</button>
-
-    <div id="lightbox-overlay" class="lightbox-overlay">
-        <button id="close-lightbox" class="close-lightbox" title="Đóng">&times;</button>
-        <img id="lightbox-image" class="lightbox-image" alt="Ảnh phóng to">
+    <div class="header-wrapper">
+        <header id="main-header">
+            <div class="logo">Đầm Hà <span>10A7</span></div>
+            <nav class="scrollable-nav">
+                <a href="#tong-quan">Tổng quan</a>
+                <a href="#hanh-chinh">Kinh tế</a>
+                <a href="#du-lich">Du lịch</a>
+                <a href="#van-hoa">Văn hóa</a>
+                <a href="#am-thuc">Đặc sản</a>
+            </nav>
+            <button id="theme-toggle" aria-label="Chuyển đổi giao diện">🌙</button>
+        </header>
     </div>
 
-    <header class="fade-in">
-        <h1>Khám Phá Đầm Hà</h1>
-        <p>"Vùng đất hội tụ linh khí núi rừng và vị mặn mòi của biển cả Đông Bắc"</p>
-    </header>
-
-    <main class="container">
+    <section id="hero">
+        <div class="hero-image-wrapper">
+            <img src="banner-chinh.webp" alt="Phong cảnh Đầm Hà" class="hero-bg-img">
+            <div class="hero-overlay"></div>
+        </div>
         
-        <section id="gioi-thieu" class="section-target reveal text-center-box">
-            <p><strong>Đầm Hà</strong> là một huyện ven biển giàu truyền thống nằm ở phía Đông Bắc tỉnh Quảng Ninh. Nơi đây sở hữu sự đa dạng sinh học hiếm có khi ôm trọn cả biển đảo, đồng bằng và đồi núi. Không chỉ thu hút bởi thiên nhiên hoang sơ, Đầm Hà còn là điểm giao thoa văn hoá của nhiều dân tộc anh em, tạo nên một kho tàng di sản và ẩm thực phong phú vô giá.</p>
+        <div class="hero-content">
+            <h1 class="poster-title">ĐẦM HÀ</h1>
+            <h2 class="poster-subtitle">VIÊN NGỌC ĐÔNG BẮC</h2>
+            <div class="badge">CHI ĐOÀN 10A7</div>
+        </div>
+    </section>
+
+    <main>
+        <section id="tong-quan" class="reveal section-card">
+            <div class="content-split">
+                <div class="split-img-wrapper scale-in">
+                    <img src="tongquan.webp" alt="Phong cảnh Đầm Hà" class="zoomable-img rounded-img">
+                </div>
+                <div class="split-text fade-slide-left">
+                    <h2 class="section-title">Vị Trí & Tổng Quan</h2>
+                    <p>Đầm Hà là một huyện ven biển miền núi nằm ở phía Đông Bắc tỉnh Quảng Ninh. Về địa giới, phía Bắc Đầm Hà giáp huyện Bình Liêu và Tiên Yên, phía Đông giáp huyện Hải Hà, và phía Nam ôm trọn vùng biển Vịnh Bắc Bộ. Huyện có diện tích tự nhiên khoảng <strong>415 km²</strong> với quy mô dân số hơn <strong>40.000 người</strong>.</p>
+                    <p>Địa hình Đầm Hà thấp dần từ Tây Bắc xuống Đông Nam, bị chia cắt bởi nhiều sông suối tạo nên các thung lũng xen kẽ. Nơi đây hội tụ đủ cả núi rừng trùng điệp, dải đồng bằng nhỏ hẹp ven biển và hệ sinh thái rừng ngập mặn phong phú, mang đặc trưng của khí hậu nhiệt đới gió mùa ven biển.</p>
+                </div>
+            </div>
         </section>
 
-        <section id="dia-diem" class="section-target reveal">
-            <h2 class="section-title">Cảnh Quan Thiên Nhiên Kỳ Thú</h2>
-            <div class="grid-layout">
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/daodadung.webp" alt="Đảo Đá Dựng" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Đảo Đá Dựng - "Viên Ngọc Thô"</h3>
-                        <p>Nằm giữa vùng biển Đầm Hà, hòn đảo vừa được công nhận là Điểm du lịch cấp tỉnh. Nơi đây nổi bật với làn nước biển trong vắt, bãi cát trắng mịn và những vách đá vôi dựng đứng kỳ vĩ được thiên nhiên kiến tạo qua hàng triệu năm.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/thacbachvan.webp" alt="Thác Bạch Vân" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Thác Bạch Vân (Quảng An)</h3>
-                        <p>Tọa lạc tại bản Tầm Làng, xã Quảng An. Với độ cao gần 70m, thác đổ xuống qua 5 tầng đá tạo thành dải lụa trắng xóa giữa thảm rừng nguyên sinh xanh mướt. Đây là điểm trekking lý tưởng để hòa mình vào thiên nhiên.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/nuihua.webp" alt="Rừng Cò Núi Hứa" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Rừng Cò Núi Hứa</h3>
-                        <p>Nằm tại thôn Làng Ruộng, xã Đại Bình. Không chỉ là di tích khảo cổ, lịch sử, đây còn là khu sinh thái quy tụ vạn cánh cò, vạc. Khung cảnh đàn cò chao lượn về tổ mỗi buổi hoàng hôn mang lại cảm giác bình yên đến lạ.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/dinhdamha.webp" alt="Đình Đầm Hà" loading="lazy" class="zoom-img"></div>
+        <section id="hanh-chinh" class="reveal section-card alt-bg">
+            <div class="content-split reverse">
+                <div class="split-img-wrapper scale-in">
+                    <img src="kinhte.webp" alt="Kinh tế Đầm Hà" loading="lazy" class="zoomable-img rounded-img">
+                </div>
+                <div class="split-text fade-slide-right">
+                    <h2 class="section-title">Hành Chính & Kinh Tế</h2>
+                    <p><strong>Dấu ấn Hành chính mới:</strong> Thực hiện Nghị quyết số 1199/NQ-UBTVQH15 của Ủy ban Thường vụ Quốc hội (giai đoạn 2023-2025), huyện Đầm Hà đã tiến hành sáp nhập toàn bộ xã Tân Bình và xã Đại Bình vào <strong>Thị trấn Đầm Hà</strong>. Bước ngoặt này giúp tinh gọn bộ máy, tối ưu hóa nguồn lực và mở rộng mạnh mẽ không gian đô thị trung tâm.</p>
+                    <p><strong>Kinh tế mũi nhọn:</strong> Đầm Hà đang vững bước với định hướng trở thành trung tâm nông nghiệp công nghệ cao của tỉnh, điển hình là Khu phức hợp sản xuất giống tôm biển quy mô lớn do Tập đoàn Việt - Úc đầu tư. Địa phương cũng đẩy mạnh phát triển nông sản sạch, cho ra đời hàng loạt sản phẩm <strong>OCOP</strong> đạt chuẩn 3-4 sao.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="du-lich" class="reveal">
+            <div class="title-wrapper">
+                <h2 class="section-title center">Khám Phá Du Lịch</h2>
+                <p class="section-desc">Hành trình trải nghiệm thiên nhiên hoang sơ, hùng vĩ và tìm về những chứng tích lịch sử tự hào của vùng đất Đông Bắc.</p>
+            </div>
+            <div class="card-grid">
+                <div class="material-card stagger-item">
+                    <img src="dinhdamha.webp" alt="Đình Đầm Hà" loading="lazy" class="zoomable-img card-img">
                     <div class="card-content">
                         <h3>Đình Đầm Hà</h3>
-                        <p>Công trình kiến trúc tín ngưỡng cổ kính thờ Thành hoàng làng, gắn liền với công cuộc khai hoang lập ấp. Nơi đây bảo tồn nhiều đạo sắc phong cổ, là biểu tượng thiêng liêng và niềm tự hào của người dân Đầm Hà.</p>
+                        <p>Được xây dựng từ cuối thế kỷ 17, mang đậm kiến trúc gỗ truyền thống Bắc Bộ. Đây là nơi thờ Thành hoàng bảo hộ dân làng, trung tâm sinh hoạt văn hóa tâm linh lớn nhất của cộng đồng cư dân ven biển.</p>
                     </div>
-                </article>
+                </div>
+                <div class="material-card stagger-item">
+                    <img src="cotconuihua.webp" alt="Cột cờ Núi Hứa" loading="lazy" class="zoomable-img card-img">
+                    <div class="card-content">
+                        <h3>Cột Cờ & Rừng Cò</h3>
+                        <p>Núi Hứa từng là căn cứ địa cách mạng kiên cường. Nay trên đỉnh núi, Cột cờ Tổ quốc tung bay đầy tự hào, ngay dưới chân là khu Rừng cò sinh thái bảo tồn hàng vạn cá thể chim cò tạo nên khung cảnh thanh bình.</p>
+                    </div>
+                </div>
+                <div class="material-card stagger-item">
+                    <img src="donden.webp" alt="Đồn Đen" loading="lazy" class="zoomable-img card-img">
+                    <div class="card-content">
+                        <h3>Đồn Đen - Đầm Hà Động</h3>
+                        <p>Di tích lịch sử quan trọng được bảo tồn đến ngày nay. Các lô cốt, hầm hào tại đây là minh chứng sống động cho tinh thần chiến đấu quả cảm, bảo vệ vững chắc mảnh đất biên cương của quân và dân Đầm Hà xưa.</p>
+                    </div>
+                </div>
+                <div class="material-card stagger-item">
+                    <img src="daodadung.webp" alt="Đảo Đá Dựng" loading="lazy" class="zoomable-img card-img">
+                    <div class="card-content">
+                        <h3>Đảo Đá Dựng</h3>
+                        <p>Tuyệt tác địa chất giữa vịnh hoang sơ, nổi bật với những vách đá trầm tích kỳ vĩ được sóng biển bào mòn qua hàng triệu năm. Nước biển quanh đảo trong vắt, là điểm lý tưởng để cắm trại và khám phá.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="trai-nghiem" class="section-target reveal">
-            <h2 class="section-title">Trải Nghiệm Văn Hóa Độc Đáo</h2>
-            <div class="grid-layout">
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/lehoi.webp" alt="Lễ Hội Đình Đầm Hà" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Lễ Hội Đình Đầm Hà</h3>
-                        <p>Được ghi danh là Di sản văn hóa phi vật thể Quốc gia (tháng 11/2023). Lễ hội diễn ra rộn ràng vào dịp đầu xuân với nghi lễ "rước Thần bằng kiệu chạy" độc nhất vô nhị cùng các phần Hát nhà tơ, múa Cửa Đình uy nghi.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/hatsoongco.webp" alt="Hát Soóng Cọ" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Làn Điệu Soóng Cọ</h3>
-                        <p>Lối hát giao duyên truyền thống của đồng bào dân tộc Sán Chỉ. Những câu hát mộc mạc, không cần nhạc cụ đệm nhưng chan chứa ân tình, thường được cất lên vang vọng giữa núi rừng trong ngày hội 16/3 âm lịch.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/lambanh.webp" alt="Làm Bánh Gật Gù" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Làm Bánh Gật Gù</h3>
-                        <p>Trải nghiệm tự tay xay bột gạo tẻ trộn chút cơm nguội, tráng mỏng và cuộn thành món bánh đặc sản mềm dai. Điểm nhấn là thưởng thức bánh nóng hổi béo ngậy cùng bát nước chấm mỡ gà chưng hành phi thơm lừng.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/thiennhien.webp" alt="Nhịp Sống Bình Dị" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Nhịp Sống Đồng Quê</h3>
-                        <p>Thả mình vào nhịp sống chậm rãi nơi xóm làng. Du khách có thể thong dong đạp xe qua những cánh đồng, hít thở làn gió mát rượi và cảm nhận sự hiếu khách, nồng hậu của con người xứ mỏ.</p>
-                    </div>
-                </article>
+        <section id="van-hoa" class="reveal section-card">
+            <div class="content-split">
+                <div class="split-img-wrapper scale-in">
+                    <img src="lehoi.webp" alt="Văn hóa Đầm Hà" loading="lazy" class="zoomable-img rounded-img">
+                </div>
+                <div class="split-text fade-slide-left">
+                    <h2 class="section-title">Con Người & Văn Hóa</h2>
+                    <p>Đầm Hà là bức tranh đa sắc màu, hội tụ 12 dân tộc anh em (tiêu biểu là Kinh, Dao, Sán Chỉ). Dù khác biệt về tập tục, người dân Đầm Hà luôn giữ bản tính hiền hòa, cần cù, đoàn kết và cực kỳ mến khách.</p>
+                    <p>Nét văn hóa đặc sắc nhất là <strong>Lễ hội Đình Đầm Hà</strong> (15-17 tháng Giêng Âm lịch) – Di sản văn hóa phi vật thể Quốc gia với nghi lễ rước cờ thần độc đáo. Ngoài ra còn có <strong>làn điệu Soóng Cọ</strong> giao duyên đằm thắm của đồng bào Sán Chỉ, hay nghi lễ <strong>Cấp sắc</strong> mang tính giáo dục sâu sắc của người Dao.</p>
+                </div>
             </div>
         </section>
 
-        <section id="dac-san" class="section-target reveal">
-            <h2 class="section-title">Ẩm Thực OCOP Níu Chân Du Khách</h2>
-            <div class="grid-layout">
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/gabandamha.webp" alt="Gà Râu Đầm Hà" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Gà Bản (Gà Râu) Đầm Hà</h3>
-                        <p>Giống gà địa phương đặc hữu có cụm lông mọc dưới mỏ như bộ râu. Nhờ được nuôi thả đồi tự nhiên, gà râu Đầm Hà (sản phẩm OCOP 4 sao) có lớp da vàng giòn, thớ thịt săn chắc, thơm ngọt và giàu dinh dưỡng.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/ngansao.webp" alt="Ngan sao Đại Bình" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Ngan Sao Đại Bình</h3>
-                        <p>Sản phẩm OCOP 3 sao cấp tỉnh. Giống ngan có mào đỏ thẫm, lông khoang đen trắng ánh xanh. Nhờ được chăn thả ven suối xã Đại Bình, thịt ngan rất nạc, mềm, ngọt nước và không hề có mùi hôi.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/cucaiphen.webp" alt="Củ Cải Phên" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Củ Cải Phên</h3>
-                        <p>Được ví như "nhân sâm trắng" của Đầm Hà. Củ cải tươi được thái mỏng, ướp muối mặn mòi và phơi khô trên phên nứa dưới nắng gió vùng cao. Đây là gia vị dân dã tạo nên linh hồn cho các món kho truyền thống.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="img-wrapper"><img src="images/khaunhuc.webp" alt="Khâu Nhục Đầm Hà" loading="lazy" class="zoom-img"></div>
-                    <div class="card-content">
-                        <h3>Khâu Nhục Đầm Hà</h3>
-                        <p>Món cỗ trứ danh không thể thiếu. Thịt ba chỉ lợn được luộc, châm da, chiên phồng rồi chưng cách thủy nhiều giờ cùng củ cải phên, tạo nên miếng thịt mềm rục, béo ngậy và tan ngay trong miệng.</p>
-                    </div>
-                </article>
+        <section id="am-thuc" class="reveal">
+            <div class="title-wrapper">
+                <h2 class="section-title center green-text">ĐẶC SẢN NỔI TIẾNG ĐẦM HÀ</h2>
+                <p class="section-desc">Tinh hoa ẩm thực chắt lọc từ thiên nhiên miền biển và bàn tay khéo léo của người dân, được lớp 10A7 mang trọn vẹn đến gian hàng!</p>
+            </div>
+            
+            <div class="gallery-grid flex-centered">
+                <div class="food-card stagger-item">
+                    <img src="khaunhuc.webp" alt="Khâu nhục" loading="lazy" class="zoomable-img">
+                    <h3>Khâu Nhục</h3>
+                    <p>Món ăn "linh hồn" trong các dịp đại tiệc, lễ Tết. Thịt lợn ba chỉ được châm da, chiên phồng rộp rồi hấp cách thủy 5-6 tiếng cùng khoai môn, mộc nhĩ, hoa hồi và tàu xì. Miếng thịt nâu đỏ óng ả, tan rục trong miệng, béo ngậy mà không ngấy.</p>
+                </div>
+                <div class="food-card stagger-item">
+                    <img src="cucaiphien.webp" alt="Củ cải phên" loading="lazy" class="zoomable-img">
+                    <h3>Củ Cải Phên</h3>
+                    <p>Sản phẩm OCOP 3 sao nức tiếng. Củ cải to được thái lát dày, ướp muối vừa vặn và phơi nắng trên phên tre. Miếng củ cải phên giữ độ giòn sần sật, mang vị mặn mòi của biển hòa quyện độ ngọt hậu. Đem xào cùng thịt ba chỉ ăn vô cùng hao cơm.</p>
+                </div>
+                <div class="food-card stagger-item">
+                    <img src="cucaikho.webp" alt="Củ cải khô" loading="lazy" class="zoomable-img">
+                    <h3>Củ Cải Khô</h3>
+                    <p>Làm từ những củ cải non, ngọt nước nhất, thái sợi dài và phơi kiệt dưới nắng giòn. Sợi củ cải khô giữ trọn dưỡng chất. Ngâm nở và hầm cùng sườn non sụn lợn hoặc móng giò sẽ tạo ra một nồi canh vô cùng thanh ngọt, giải nhiệt cực tốt.</p>
+                </div>
+                <div class="food-card stagger-item">
+                    <img src="tauxi.webp" alt="Tàu xì" loading="lazy" class="zoomable-img">
+                    <h3>Tàu Xì</h3>
+                    <p>Gia vị làm nên nét độc đáo của ẩm thực Đầm Hà. Tàu xì làm từ đậu đen tuyển chọn, luộc chín, ủ men tự nhiên và phơi nắng cùng muối biển. Hạt tàu xì đen nhánh, thơm nồng đặc trưng, vị mặn bùi, chưng cá hay kho thịt đều xuất sắc.</p>
+                </div>
+                <div class="food-card stagger-item">
+                    <img src="banhchungcomlongg.webp" alt="Bánh chưng cơm lông" loading="lazy" class="zoomable-img">
+                    <h3>Bánh Chưng Cơm Lông</h3>
+                    <p>Sáng tạo "độc nhất vô nhị". Lá cơm lông mọc tự nhiên trên đồi có tính mát, được xay nhuyễn trộn vào nhân thịt và đậu xanh. Khi luộc chín, tinh chất từ lá nhuộm phần nhân thành màu đỏ tía rực rỡ, vị dẻo rền, bùi béo và hương thơm thanh mát lạ miệng.</p>
+                </div>
+                <div class="food-card stagger-item">
+                    <img src="banhbo.webp" alt="Bánh bò" loading="lazy" class="zoomable-img">
+                    <h3>Bánh Bò</h3>
+                    <p>Món quà vặt mộc mạc mang bầu trời tuổi thơ của người dân quê. Bánh làm từ bột gạo tẻ xay nước, ủ men thủ công truyền thống. Khi hấp chín, bánh nở bung xốp mềm với vô số rễ tre li ti, vị dai xốp, ngọt thanh và nồng nàn hương men gạo.</p>
+                </div>
+                <div class="food-card stagger-item">
+                    <img src="lacdo.webp" alt="Lạc đỏ" loading="lazy" class="zoomable-img">
+                    <h3>Lạc Đỏ</h3>
+                    <p>Giống lạc bản địa quý hiếm đã đạt chuẩn OCOP. Hạt lạc khá nhỏ, vỏ lụa màu đỏ tươi bắt mắt và chứa hàm lượng tinh dầu vượt trội. Khi rang chín, lạc nứt vỏ tỏa mùi thơm nức mũi, nhai giòn rụm và để lại vị bùi béo đậm đà lưu luyến.</p>
+                </div>
             </div>
         </section>
-
-        <div class="feedback-section reveal">
-            <a href="feedback.html" class="feedback-btn">📝 Đánh giá & Góp ý</a>
-            <p class="beta-text">Đang trong giai đoạn thử nghiệm</p>
-        </div>
     </main>
 
+    <div id="image-modal" class="hidden">
+        <span id="close-modal" aria-label="Đóng">&times;</span>
+        <img id="modal-img" src="" alt="Ảnh phóng to">
+    </div>
+
+    <button id="back-to-top" aria-label="Lên đầu trang">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
+    <div class="wave-container">
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="var(--wave-color)" fill-opacity="1" d="M0,224L48,229.3C96,235,192,245,288,218.7C384,192,480,128,576,128C672,128,768,192,864,213.3C960,235,1056,213,1152,181.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
     <footer>
-        <p><strong>Gian Hàng Chợ Quê Đầm Hà</strong> - Dự án của Lớp Chúng Mình</p>
-        <p>Kính chúc thầy cô và các bạn một ngày hội vui vẻ, ý nghĩa!</p>
+        <div class="footer-content">
+            <p>🔍 <span>Mời thầy cô và các bạn ghé thăm để thưởng thức nhé!</span></p>
+            <h3>Gian hàng chợ quê Đầm Hà – Lớp 10A7</h3>
+            <p>Trường THPT Cửa Ông</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
