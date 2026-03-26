@@ -32,7 +32,6 @@
     --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.6);
 }
 
-/* Tối ưu render cơ bản */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-padding-top: 100px; }
@@ -57,7 +56,7 @@ h1, h2, h3, .logo, .badge { font-family: var(--font-heading); font-weight: 800; 
 
 header {
     pointer-events: auto;
-    background-color: rgba(255, 255, 255, 0.65); 
+    background-color: rgba(255, 255, 255, 0.7); 
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.5); 
@@ -70,7 +69,7 @@ header {
 }
 
 [data-theme="dark"] header {
-    background-color: rgba(30, 30, 30, 0.65);
+    background-color: rgba(30, 30, 30, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -79,11 +78,12 @@ header.hidden-up { transform: translateY(-150%); }
 .logo { font-size: clamp(20px, 4vw, 24px); color: var(--primary-color); white-space: nowrap; }
 .logo span { color: var(--accent-blue); }
 
-.scrollable-nav { display: flex; align-items: center; gap: 5px; }
+.scrollable-nav { display: flex; align-items: center; gap: 6px; }
 
+/* Tối ưu hiệu ứng Nút Menu (Sửa lỗi bóng mờ gắt) */
 nav a {
     text-decoration: none; color: var(--text-color);
-    padding: 8px 16px; font-weight: 700; font-size: 15px;
+    padding: 8px 18px; font-weight: 700; font-size: 15px;
     border-radius: var(--radius-pill); transition: var(--transition-smooth);
     white-space: nowrap; 
 }
@@ -91,18 +91,22 @@ nav a {
 @media (hover: hover) {
     nav a:hover { 
         background-color: var(--primary-color); color: white;
-        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4); transform: translateY(-2px);
+        /* Bóng đổ xếp lớp mềm mại tự nhiên hơn */
+        box-shadow: 0 10px 20px -5px rgba(243, 156, 18, 0.6); 
+        transform: translateY(-2px);
     }
 }
 
 nav a.active-link { 
     background-color: var(--primary-color); color: white;
-    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4); transform: translateY(-2px);
+    /* Hiệu ứng tỏa sáng mượt mà như đèn LED, không bị đục */
+    box-shadow: 0 8px 20px -4px rgba(243, 156, 18, 0.5), 0 4px 8px -2px rgba(243, 156, 18, 0.3); 
+    transform: translateY(-2px);
 }
 
 nav a:active {
-    background-color: rgba(243, 156, 18, 0.2);
-    color: var(--primary-color); filter: blur(1px); transform: scale(0.92);
+    background-color: rgba(243, 156, 18, 0.15);
+    color: var(--primary-color); filter: blur(0.5px); transform: scale(0.95);
     box-shadow: none; transition: all 0.1s;
 }
 
@@ -181,7 +185,7 @@ section { padding: 100px 5%; max-width: 1200px; margin: auto; }
 }
 .rounded-img:hover { transform: scale(1.05); }
 
-/* --- Lưới Du lịch & Ẩm Thực --- */
+/* --- Lưới Du lịch --- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
 .material-card {
     background: var(--card-bg); border-radius: var(--radius-card); overflow: hidden;
@@ -192,6 +196,7 @@ section { padding: 100px 5%; max-width: 1200px; margin: auto; }
 .card-content { padding: 25px; }
 .card-content h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 1.5rem; }
 
+/* --- Lưới Ẩm Thực (Flexbox) --- */
 .gallery-grid.flex-centered { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
 .food-card {
     width: clamp(220px, 100%, 280px); background: var(--card-bg);
@@ -260,7 +265,6 @@ footer { background-color: var(--wave-color); color: white; text-align: center; 
 .active .stagger-item:nth-child(5) { animation-delay: 0.5s; }
 .active .stagger-item:nth-child(6) { animation-delay: 0.6s; }
 .active .stagger-item:nth-child(7) { animation-delay: 0.7s; }
-.active .stagger-item:nth-child(8) { animation-delay: 0.8s; }
 
 .fade-slide-left { opacity: 0; transform: translateX(30px); }
 .active .fade-slide-left { animation: slideIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
