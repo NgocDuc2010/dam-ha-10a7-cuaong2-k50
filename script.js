@@ -1,137 +1,155 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", () => {
     
-    // =========================================================
-    // 1. CHẾ ĐỘ TỐI (DARK MODE)
-    // =========================================================
-    try {
-        const themeBtn = document.getElementById('theme-toggle');
-        if (themeBtn) {
-            document.documentElement.classList.remove('dark-mode-init');
-            
-            let isDark = false;
-            try { isDark = localStorage.getItem('theme') === 'dark'; } catch(e){}
-            if (isDark) document.body.classList.add('dark-mode');
-            themeBtn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-
-            themeBtn.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                const nowDark = document.body.classList.contains('dark-mode');
-                this.innerHTML = nowDark ? '☀️' : '🌙';
-                try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch(e){}
-            });
-        }
-    } catch (err) { console.warn("Lỗi Theme"); }
-
-    // =========================================================
-    // 2. HIỆU ỨNG HIỆN DẦN (SCROLL REVEAL)
-    // =========================================================
-    try {
-        const reveals = document.querySelectorAll('.reveal');
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        obs.unobserve(entry.target); // Chạy mượt 1 lần, chống giật
-                    }
-                });
-            }, { threshold: 0.15 });
-            
-            reveals.forEach(el => observer.observe(el));
-        } else {
-            reveals.forEach(el => el.classList.add('active'));
-        }
-    } catch (err) {
-        document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+    // 1. Chế độ Sáng/Tối (Lưu LocalStorage)
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const body = document.body;
+    
+    if (localStorage.getItem("theme") === "dark") {
+        body.setAttribute("data-theme", "dark");
+        themeToggleBtn.textContent = "☀️";
     }
 
-    // =========================================================
-    // 3. CUỘN TRANG (MENU ẨN HIỆN & NÚT LÊN ĐẦU)
-    // =========================================================
-    try {
-        const nav = document.getElementById('navbar');
-        const btt = document.getElementById('back-to-top');
-        let lastScrollY = window.scrollY || document.documentElement.scrollTop;
-        let ticking = false;
-
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    const currentY = window.scrollY || document.documentElement.scrollTop;
-                    
-                    if (nav) {
-                        if (currentY > lastScrollY && currentY > 150) nav.style.transform = 'translateY(-100%)';
-                        else nav.style.transform = 'translateY(0)';
-                    }
-                    lastScrollY = currentY;
-
-                    if (btt) {
-                        if (currentY > 400) btt.classList.add('show');
-                        else btt.classList.remove('show');
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        if (btt) btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    } catch (err) { console.warn("Lỗi Scroll"); }
-
-    // =========================================================
-    // 4. PHÓNG TO ẢNH ĐỈNH CAO (HỖ TRỢ MOBILE BACK & ESC KEY)
-    // =========================================================
-    try {
-        const lbOverlay = document.getElementById('lightbox-overlay');
-        const lbImage = document.getElementById('lightbox-image');
-        const lbClose = document.getElementById('close-lightbox');
-        const images = document.querySelectorAll('.zoom-img');
-
-        function openLightbox(src, alt) {
-            if (lbOverlay && lbImage) {
-                lbImage.src = src;
-                lbImage.alt = alt || '';
-                lbOverlay.classList.add('show');
-                document.body.classList.add('no-scroll');
-                
-                // Thủ thuật dùng Hash URL để bắt nút Back trên điện thoại
-                try { window.location.hash = 'zoom'; } catch(e) {}
-            }
+    themeToggleBtn.addEventListener("click", () => {
+        if (body.getAttribute("data-theme") === "dark") {
+            body.removeAttribute("data-theme");
+            localStorage.setItem("theme", "light");
+            themeToggleBtn.textContent = "🌙";
+        } else {
+            body.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+            themeToggleBtn.textContent = "☀️";
         }
+    });
 
-        function closeLightboxUI() {
-            if (lbOverlay) {
-                lbOverlay.classList.remove('show');
-                document.body.classList.remove('no-scroll');
-                setTimeout(() => { if(lbImage) lbImage.src = ''; }, 300);
-            }
+    // 2. Ẩn/Hiện Header khi cuộn
+    const header = document.getElementById("main-header");
+    let lastScrollTop = 0;
+
+    window.addEventListener("scroll", () => {
+        let currentScroll = window.scrollY || document.documentElement.scrollTop;
+        if (currentScroll > lastScrollTop && currentScroll > 400) {
+            header.classList.add("hidden-up"); 
+        } else {
+            header.classList.remove("hidden-up"); 
         }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
 
-        function requestCloseLightbox() {
-            if (window.location.hash === '#zoom') {
-                try { window.history.back(); } catch(e) { window.location.hash = ''; closeLightboxUI(); }
-            } else {
-                closeLightboxUI();
+    // 3. Hiệu ứng Scroll Reveal (Xếp tầng)
+    const reveals = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+                revealObserver.unobserve(entry.target); 
             }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    reveals.forEach(reveal => revealObserver.observe(reveal));
+
+    // 4. Modal Zoom Ảnh (Khóa History API an toàn)
+    const modal = document.getElementById("image-modal");
+    const modalImg = document.getElementById("modal-img");
+    const closeBtn = document.getElementById("close-modal");
+    const zoomableImages = document.querySelectorAll(".zoomable-img");
+    let isModalOpen = false;
+
+    zoomableImages.forEach(img => {
+        img.addEventListener("click", () => {
+            modalImg.src = img.src;
+            modal.classList.add("active");
+            isModalOpen = true;
+            window.history.pushState({ modalOpen: true }, "");
+        });
+    });
+
+    window.addEventListener("popstate", () => {
+        if (isModalOpen) {
+            modal.classList.remove("active");
+            isModalOpen = false;
         }
+    });
 
-        // Bắt sự kiện Hash URL (Khi bấm nút Back ĐT)
-        window.addEventListener('hashchange', function() {
-            if (window.location.hash !== '#zoom') closeLightboxUI();
-        });
+    function requestCloseModal() {
+        if (isModalOpen) {
+            window.history.back(); 
+        }
+    }
 
-        images.forEach(img => {
-            img.addEventListener('click', function() { openLightbox(this.src, this.alt); });
-        });
-
-        if (lbClose) lbClose.addEventListener('click', requestCloseLightbox);
-        if (lbOverlay) lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) requestCloseLightbox(); });
-        
-        // Bắt đa dạng phím ESC (Chống lỗi giả lập)
-        document.addEventListener('keydown', (e) => { 
-            if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) requestCloseLightbox(); 
-        });
-
-    } catch (err) { console.warn("Lỗi Lightbox"); }
+    closeBtn.addEventListener("click", requestCloseModal);
     
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            requestCloseModal();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isModalOpen) {
+            e.preventDefault();
+            requestCloseModal();
+        }
+    });
+
+    // 5. Nút Lên Đầu Trang
+    const backToTopBtn = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+            backToTopBtn.classList.add("show");
+        } else {
+            backToTopBtn.classList.remove("show");
+        }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // 6. ScrollSpy (Highlight menu chuẩn xác)
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".scrollable-nav a");
+
+    window.addEventListener("scroll", () => {
+        let current = "";
+        const scrollPosition = window.scrollY + 150; 
+
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach((a) => {
+            a.classList.remove("active-link");
+            if (current !== "" && a.getAttribute("href").includes(current)) {
+                a.classList.add("active-link");
+            }
+        });
+    });
+
+    // 7. Tự điều khiển Scroll mượt (Sửa lỗi giật chớp trang)
+    navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            const targetId = this.getAttribute("href");
+            
+            // Đảm bảo thẻ có Id và an toàn để cuộn
+            if(targetId && targetId.startsWith("#") && targetId.length > 1) {
+                e.preventDefault(); 
+                
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const offsetTop = targetSection.getBoundingClientRect().top + window.scrollY - 100;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: "smooth"
+                    });
+                }
+            }
+        });
+    });
 });
