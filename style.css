@@ -32,13 +32,18 @@
     --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.6);
 }
 
+/* Tối ưu render cơ bản */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-padding-top: 100px; }
 
 body {
-    font-family: var(--font-body); background-color: var(--bg-color); color: var(--text-color);
-    line-height: 1.7; overflow-x: hidden; transition: background-color var(--transition-smooth), color var(--transition-smooth);
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
 h1, h2, h3, .logo, .badge { font-family: var(--font-heading); font-weight: 800; }
@@ -46,13 +51,18 @@ h1, h2, h3, .logo, .badge { font-family: var(--font-heading); font-weight: 800; 
 /* --- Thanh Header Glassmorphism --- */
 .header-wrapper {
     position: fixed; top: 20px; left: 0; width: 100%;
-    display: flex; justify-content: center; z-index: 1000; pointer-events: none; 
+    display: flex; justify-content: center; z-index: 1000;
+    pointer-events: none; 
 }
 
 header {
-    pointer-events: auto; background-color: rgba(255, 255, 255, 0.65); 
-    backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: var(--shadow-soft); border-radius: var(--radius-pill);
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, 0.65); 
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5); 
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-pill);
     display: flex; justify-content: space-between; align-items: center;
     padding: 8px 24px; width: 95%; max-width: 1000px;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
@@ -60,7 +70,8 @@ header {
 }
 
 [data-theme="dark"] header {
-    background-color: rgba(30, 30, 30, 0.65); border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(30, 30, 30, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 header.hidden-up { transform: translateY(-150%); }
@@ -71,9 +82,10 @@ header.hidden-up { transform: translateY(-150%); }
 .scrollable-nav { display: flex; align-items: center; gap: 5px; }
 
 nav a {
-    text-decoration: none; color: var(--text-color); padding: 8px 16px; 
-    font-weight: 700; font-size: 15px; border-radius: var(--radius-pill); 
-    transition: var(--transition-smooth); white-space: nowrap; 
+    text-decoration: none; color: var(--text-color);
+    padding: 8px 16px; font-weight: 700; font-size: 15px;
+    border-radius: var(--radius-pill); transition: var(--transition-smooth);
+    white-space: nowrap; 
 }
 
 @media (hover: hover) {
@@ -89,8 +101,9 @@ nav a.active-link {
 }
 
 nav a:active {
-    background-color: rgba(243, 156, 18, 0.2); color: var(--primary-color); 
-    filter: blur(1px); transform: scale(0.92); box-shadow: none; transition: all 0.1s;
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--primary-color); filter: blur(1px); transform: scale(0.92);
+    box-shadow: none; transition: all 0.1s;
 }
 
 #theme-toggle {
@@ -102,15 +115,17 @@ nav a:active {
 
 /* --- Hero Section & Chữ 3D --- */
 #hero {
-    position: relative; height: 100vh; display: flex; align-items: center; 
-    justify-content: center; text-align: center; overflow: hidden;
+    position: relative; height: 100vh; display: flex;
+    align-items: center; justify-content: center; text-align: center; overflow: hidden;
 }
+
 .hero-image-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 .hero-bg-img { width: 100%; height: 100%; object-fit: cover; background-color: #8caba1; }
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
 }
+
 .hero-content { animation: scaleUpBounce 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; padding: 0 20px; z-index: 1; }
 
 .poster-title {
@@ -166,7 +181,7 @@ section { padding: 100px 5%; max-width: 1200px; margin: auto; }
 }
 .rounded-img:hover { transform: scale(1.05); }
 
-/* --- Lưới Du lịch --- */
+/* --- Lưới Du lịch & Ẩm Thực --- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
 .material-card {
     background: var(--card-bg); border-radius: var(--radius-card); overflow: hidden;
@@ -177,7 +192,6 @@ section { padding: 100px 5%; max-width: 1200px; margin: auto; }
 .card-content { padding: 25px; }
 .card-content h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 1.5rem; }
 
-/* --- Lưới Ẩm Thực (Flexbox) --- */
 .gallery-grid.flex-centered { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
 .food-card {
     width: clamp(220px, 100%, 280px); background: var(--card-bg);
@@ -234,9 +248,9 @@ footer { background-color: var(--wave-color); color: white; text-align: center; 
 .footer-content h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 10px 0; }
 .footer-content p span { font-style: italic; opacity: 0.9; }
 
-/* --- Animation JS --- */
-.reveal { opacity: 0; }
-.reveal.active { animation: fadeIn 0.8s forwards; }
+/* --- Animations Kích Hoạt Bởi JS --- */
+.reveal { opacity: 0; will-change: transform, opacity; }
+.reveal.active { animation: fadeIn 0.8s ease-out forwards; }
 .stagger-item { opacity: 0; transform: translateY(30px); }
 .active .stagger-item { animation: slideUpBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 .active .stagger-item:nth-child(1) { animation-delay: 0.1s; }
@@ -246,6 +260,7 @@ footer { background-color: var(--wave-color); color: white; text-align: center; 
 .active .stagger-item:nth-child(5) { animation-delay: 0.5s; }
 .active .stagger-item:nth-child(6) { animation-delay: 0.6s; }
 .active .stagger-item:nth-child(7) { animation-delay: 0.7s; }
+.active .stagger-item:nth-child(8) { animation-delay: 0.8s; }
 
 .fade-slide-left { opacity: 0; transform: translateX(30px); }
 .active .fade-slide-left { animation: slideIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
@@ -260,7 +275,7 @@ footer { background-color: var(--wave-color); color: white; text-align: center; 
 @keyframes scaleUp { to { opacity: 1; transform: scale(1); } }
 @keyframes scaleUpBounce { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
-/* --- Mobile Tối Ưu --- */
+/* --- Mobile Responsive Tối Ưu --- */
 @media (max-width: 850px) {
     .content-split, .content-split.reverse { flex-direction: column; text-align: center; }
     .split-text p { text-align: center; } 
@@ -271,4 +286,4 @@ footer { background-color: var(--wave-color); color: white; text-align: center; 
     .logo { margin-bottom: 8px; width: auto; }
     #theme-toggle { position: absolute; right: 16px; top: 12px; }
     .section-card { padding: 30px 15px; }
-                   }
+}
